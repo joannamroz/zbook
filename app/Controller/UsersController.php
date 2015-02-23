@@ -10,7 +10,6 @@ App::uses('Rating', 'Model');
 
 class UsersController extends AppController {
 
-    //var $layout='';
      public function beforeFilter() {
         parent::beforeFilter();
         // Allow users to register and logout.
@@ -27,10 +26,14 @@ class UsersController extends AppController {
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));
         }
-        $this->set('user', $this->User->read(null, $id));
+        //do zmiennej $user_data przypisujemy pobrany jeden rekord z bazy danych z tabeli users 
+        //read() is used to retrieve a single record from the database, $id specifies the ID of the record to be read
+        $user_data=$this->User->read(null, $id);
+        $this->set('user', $user_data);
     }
 
     public function add() {
+        $this->layout='notlogged';
         if ($this->request->is('post')) {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
@@ -43,11 +46,11 @@ class UsersController extends AppController {
         }
     }
 
-    public function edit($id = null) {
-        $this->User->id = $id;
-        if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
-        }
+    public function edit() {
+
+        $user_id=$this->Auth->user('id');
+        $this->User->id = $user_id;
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(__('The user has been saved'));
@@ -57,15 +60,15 @@ class UsersController extends AppController {
                 __('The user could not be saved. Please, try again.')
             );
         } else {
-            $this->request->data = $this->User->read(null, $id);
+            $this->request->data = $this->User->read(null, $user_id);
+            //pr($this->request->data);
             unset($this->request->data['User']['password']);
         }
     }
 
     public function delete($id = null) {
-        // Prior to 2.5 use
-        // $this->request->onlyAllow('post');
-
+        
+        //allowMethod pozwala tylko na delete user poprzez metode post/ nie przez np geta w url-u
         $this->request->allowMethod('post');
 
         $this->User->id = $id;
@@ -84,6 +87,7 @@ class UsersController extends AppController {
    
 
     public function login() {
+        $this->layout='notlogged';
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirectUrl());
@@ -104,11 +108,20 @@ class UsersController extends AppController {
         //http://book.cakephp.org/2.0/en/models/model-attributes.html
         //jest to atrybut modelu ktory jesli robimy find na tym modelu to pobierzemy glebsze relacje
         //jak jest user-books-author to majac 0 i 1 dojedziemy tylko do books i user a majac 2 to jeszcze do authora
-
         $this->Rating->recursive = 2;
         $user_books=$this->Rating->find('all', array('conditions'=>array('Rating.user_id'=>$user_id)));
         //pr($user_books);
         $this->set('user_books', $user_books);
     }
+    public function profile() {
+        $user_id=$this->Auth->user('id');
+        //pr($user_id);die();
+        $user_data=$this->User->find('first',array('conditions'=>array('User.id'=>$user_id)));
+        //pr($user_data);die();
+        $this->set('user_data', $user_data);
+        $this->set('user_id', $user_id);
+
+    }
+
 
 }

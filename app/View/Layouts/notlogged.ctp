@@ -33,7 +33,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->script('script');
 		echo $this->Html->script('jquery.rateit');
 
-		echo $this->Html->css('cake.generic');
+		//echo $this->Html->css('cake.generic');
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->css('style');
 		echo $this->Html->css('rateit');
@@ -46,26 +46,44 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	?>
 </head>
 <body>
-	<div id="nav">
-		<div id="header">
-			<h1><?php echo $this->Html->link('zBook', '/'); ?>
-			<div style="float:right"><?php echo $this->Html->link('Logout', array('controller'=>'users','action'=>'logout')); ?>
-			<?php echo $this->Html->link(AuthComponent::user('username'), array('controller'=>'users', 'action'=>'user_book'))?></div></h1>
-		</div>
-		<div id="content">
 
-			<?php echo $this->Session->flash(); ?>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	        <span class="sr-only"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/">zBook</a>
+	    </div>
+	    <div id="navbar" class="navbar-collapse collapse">
+	      <ul class="nav navbar-nav">
+	        <li><a></a></li>
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	        <li></li>
+	       <li> </li>
+	      </ul>
+	    </div><!--/.nav-collapse -->
+	  </div>
+	</nav>
 
-			<?php echo $this->fetch('content'); ?>
-		</div>
-		<div id="footer">
-			<?php 
-			?>
-			<h3>
-				<strong style="color:red"><?php //echo 'Asia sie uczy :) '; //echo $cakeVersion; ?></strong>
-			</h3>
-		</div>
+	<div id="content" class="container"> 
+		<?php //echo $this->Html->image(AuthComponent::user('avatar'), array('width'=>'25')); ?>
+		
+		<?php echo $this->Session->flash(); ?>
+
+		<?php echo $this->fetch('content'); ?>
 	</div>
-	<?php //echo $this->element('sql_dump'); ?>
+	<footer class="footer" >
+	  <div class="container" >
+	    <p class="text-muted"><?php echo $cakeVersion; ?></p>   
+	    
+	  </div>
+	</footer>
 </body>
+
+
 </html>

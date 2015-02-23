@@ -61,21 +61,21 @@ class PostsController extends AppController {
     	}
 	}
 	public function delete($id) {
-    if ($this->request->is('get')) {
-        throw new MethodNotAllowedException();
-    }
+        if ($this->request->is('get')) {
+            throw new MethodNotAllowedException();
+        }
 
-    if ($this->Post->delete($id)) {
-        $this->Session->setFlash(
-            __('The post with id: %s has been deleted.', h($id))
-        );
-    } else {
-        $this->Session->setFlash(
-            __('The post with id: %s could not be deleted.', h($id))
-        );
-    }
+        if ($this->Post->delete($id)) {
+            $this->Session->setFlash(
+                __('The post with id: %s has been deleted.', h($id))
+            );
+        } else {
+            $this->Session->setFlash(
+                __('The post with id: %s could not be deleted.', h($id))
+            );
+        }
 
-    return $this->redirect(array('action' => 'index'));
+        return $this->redirect(array('action' => 'index'));
     }
     public function isAuthorized($user) {
 
@@ -99,4 +99,4 @@ class PostsController extends AppController {
 
         return parent::isAuthorized($user);
     }
-}//i tak nie zrozumiesz
+}

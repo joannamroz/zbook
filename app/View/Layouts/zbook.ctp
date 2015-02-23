@@ -32,12 +32,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->script('bootstrap');
 		echo $this->Html->script('script');
 		echo $this->Html->script('jquery.rateit');
+		echo $this->Html->script('/../libraries/select2/select2');
 
 		//echo $this->Html->css('cake.generic');
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->css('style');
 		echo $this->Html->css('rateit');
 		echo $this->Html->css('font-awesome');
+		echo $this->Html->css('/../libraries/select2/select2.css');
 
 
 		echo $this->fetch('meta');
@@ -60,18 +62,39 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	    </div>
 	    <div id="navbar" class="navbar-collapse collapse">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="/">Strona główna</a></li>
+	        <li class=""><a href="/">Strona główna</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><?php echo $this->Html->link(AuthComponent::user('username'), array('controller'=>'users', 'action'=>'user_book'))?></li>
-	       <li class="active"> <?php echo $this->Html->link('Logout', array('controller'=>'users', 'action'=>'logout')); ?> </li>
+	      	<li><?php echo $this->Html->link( 
+	      		$this->Html->image(AuthComponent::user('avatar'), array('class'=>'avatar_img ')).'&nbsp'.AuthComponent::user('username'),
+	      		array('controller'=>'users', 'action'=>'profile'),
+	      		array('class'=>'link_photo',
+	      			'escape'=>false)
+
+	      		); ?></li>
+
+	      	<li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bars"></i> <span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <li><?php echo $this->Html->link("User's books", array('controller'=>'users', 'action'=>'user_book'));?></a></li>
+	            <li><?php echo $this->Html->link('Edit', array('controller'=>'users', 'action'=>'edit'));?></a></li>
+	           <!--  <li><a href="#">Another action</a></li>
+	            <li><a href="#">Something else here</a></li>
+	            <li class="divider"></li>
+	            <li><a href="#">Separated link</a></li> -->
+	          </ul>
+	        </li>
+
+	        
+	       <li class=""> <?php echo $this->Html->link('<i class="fa fa-power-off"></i>', array('controller'=>'users', 'action'=>'logout'),
+	       array('escape'=>false)); ?> </li>
 	      </ul>
 	    </div><!--/.nav-collapse -->
 	  </div>
 	</nav>
 
 	<div id="content" class="container"> 
-		<?php echo $this->Html->image(AuthComponent::user('avatar'), array('width'=>'25')); ?>
+		<?php ?>
 		
 		<?php echo $this->Session->flash(); ?>
 

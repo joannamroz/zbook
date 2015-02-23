@@ -1,5 +1,5 @@
 $(document).ready(function(){
- console.log('tu jestem!');
+ //console.log('tu jestem!');
 
     $("#rateBook").bind('rated', function (event, value) { 
 
@@ -31,8 +31,6 @@ $(document).ready(function(){
     	//alert('białe');
     	var values={};
 
-//alert( $('#komcio').val()   );
-
 		if($('#komcio').val() !=""){
 	    	values.body=$('#komcio').val();
 	    	values.book_id=book_id;
@@ -43,30 +41,31 @@ $(document).ready(function(){
 		        data: values,
 		        success: function(response){
 
-
 		        	console.log(response);
-
 
 		        	$("#zbiornik_komciow").prepend(response);
 		        	$('#komcio').val('');
 
 		        },
+
 		        error:function(){
 
 		        }
 
 		    });
+
 	    } else{
+
 	    	alert('uzupełnij tresc komcia debilu!!!!');
 	    }
+
     });
+
   	$("#heart").on('click', function(){
 
-
   		 var values = {
-	    	'book_id':book_id// jak zmienna ze scritptu to bez dolarka
+	    	'book_id':book_id
 	    	}
-
 
   		 $.ajax({
 	        url: "/ratings/ajax_favourite",
@@ -90,4 +89,10 @@ $(document).ready(function(){
 
 
   	});
+
+//kazdemu elementowi o zadanej klasie uruchamiamy/selecta2
+  $(".use_select2").select2();
+  
+
+
 });

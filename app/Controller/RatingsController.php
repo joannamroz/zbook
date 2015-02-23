@@ -12,7 +12,7 @@ class RatingsController extends AppController {
 
     	$this->layout=false;
     	$this->autoRender=false;
-    	pr('tekst z ajax add controller!');
+    	pr('tekst z ajax_add controller!');
     	if ($this->request->is('post')) {
     		var_dump("tak to jest post!");
 
@@ -20,7 +20,7 @@ class RatingsController extends AppController {
     		pr($this->request->data);
     		$this->request->data['user_id'] = $this->Auth->user('id');
             
-    		pr($this->request->data);
+    		//pr($this->request->data);
     		if ($this->Rating->save($this->request->data)) {
                 
                 //gdy juz mamy zapisane dane z ajaxa czyli id ksiazki i note to znajdujemy wszystkie noty i uzywamy
@@ -33,10 +33,6 @@ class RatingsController extends AppController {
                 $avg_rating=$ratings_data[0][0]['AverageRating']; //tu mamy w arayu wiec aby sie dostac do pojedynczego elementu
                 $rating_amount=$ratings_data[0][0]['RatingAmount']; //tu mamy w arayu wiec aby sie dostac do pojedynczego elementu
                 $this->loadModel('Book');
-
-                //$this->Book->read(null, $this->request->data['book_id']);
-                //tu ustawiamy pod kolumne'avg_rating' z tabeli ratings otrzymana srednia
-                //$this->Book>set('avg_rating', $avg_rating[0][0]['AverageRating'] );
 
                 $book=array(
                     'id'=> $this->request->data['book_id'],

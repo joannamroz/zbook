@@ -29,9 +29,8 @@ class AuthorsController extends AppController {
         $this->loadModel('Book');
         //pobranie listy autorów na potrzeby pola select
         $books = $this->Book->find('all', array(
-        	'conditions' => array('Book.author_id' => $id))
-            	//array('fields' => array('title', 'id'))
-        );
+        	'conditions' => array('Book.author_id' => $id)
+        ));
            // pr($books);die();
         $this->set('books', $books);
         //pr($books);

@@ -16,10 +16,7 @@ class Post extends AppModel {
     	pr('id posta '.$post_id);
     	pr('id uzytkownika '.$user_id);
     	//die();
-    	//$warunek = array('id'=> $post_id)
-    	//  $this->field($nazwa_pola, $warunek );
-    	//$pole = $this->field('title', array('id' => $post_id, 'user_id' => $user_id)) ;//!== false;
-		//pr($pole);
+        
     	$pole_id =  $this->field('id', array('id'=>$post_id, 'user_id' => $user_id));
     	if ($pole_id !== false) {
     		pr('ludek ma dostep');

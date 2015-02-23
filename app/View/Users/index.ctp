@@ -1,17 +1,22 @@
 <div>
 <?php
-echo '<table>
-		<tr><td>Uzytkownicy</td></tr>';
- foreach ($users as $user ) {
+echo '<table class="table table-bordered">
+		<tr>
+			<th>Nr </th>
+			<th><strong>Users: </strong></th>
+			
+		</tr>';
+		?>
+<?php $lp=1; ?>
+<?php  foreach ($users as $user ) :  ?>
+		 <tr>
+		 	<td><?php echo $lp ?></td>
+		 	<td><?php echo $user['User']['username'] ?></td>
+		 </tr>
+ 
+<?php $lp++; 
+ endforeach; 
+echo '</table>';?>
+<?php //pr($users); ?>
 
-  ?>
- <tr>
- 	<td><?php echo $user['User']['username'] ?></td>
- </tr>
-
- <?php	
- }
- echo '</table>';
-//pr($users);
-?>
 </div>

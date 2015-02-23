@@ -12,8 +12,6 @@ class Author extends AppModel {
     public $hasMany = array(
         'Book' => array(
             'className' => 'Book'
-            //'conditions' => array('Recipe.approved' => '1'),
-            //'order' => 'Recipe.created DESC'
         )
     );
     
