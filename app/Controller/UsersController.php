@@ -121,7 +121,81 @@ class UsersController extends AppController {
         $this->set('user_data', $user_data);
         $this->set('user_id', $user_id);
 
+        //pobrane celem wyświetlenia pozycji polubionych/ocenionych książek podglądanego użytkownika
+        // $this->loadModel('Rating');
+        // $user_info=$this->Rating->find('all', array('conditions'=>array('Rating.user_id'=>$user_id)));
+        // $this->set('user_info', $user_info);
+
+        $this->loadModel('Message');
+        $user_message=$this->Message->find('all', array(
+            'conditions'=>array('Message.recipient_id'=>$user_id),
+             'order' => array('Message.created' => 'desc')));
+        $this->set('user_message',$user_message);
+
+
     }
+    public function view_user($id = null) {
+        if (!$id) {
+            throw new NotFoundException(__('Invalid user'));
+        }
 
+        $user_info = $this->User->findById($id);
+        if (!$user_info) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+        
+        $this->set('user_info', $user_info);
+        $this->loadModel('Message');
+        
 
+        if ($this->request->is('post')) {
+            $this->Message->create();
+            $data_to_save=$this->request->data;
+            // pr($data_to_save);die();
+            $data_to_save['Message']['sender_id']=$this->Auth->user('id');
+            $data_to_save['Message']['recipient_id']=$id;
+            if ($this->Message->save($data_to_save)) {
+                 $this->Session->setFlash(__('Your message has been send.'));
+
+                //przekierowanie do widoku index
+                return $this->redirect(array('controller'=>'users', 'action' => 'view_user', $user_info['User']['id']));
+            }
+
+        }
+
+    }
+    public function edit_avatar($id = null) {
+        $this->User->id = $id;
+        if ($this->request->is('post'))  {
+            //pr($this->request->data);
+            $filename = $this->request->data['User']['avatar']['name'];
+            //pr($filename);
+
+            //do zmiennej $ext pobieramy funkcje pathinfo rozszerzenei pliku
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+            //pr($ext);
+            // do zmiennej name_hash wpisujemy losowy "hash" ktorym bedzie nowa nazwa nazsego pliczku I doklejamy kropke oraz rozszerzenie zeby powstala dobra nazwa pliczku
+            $name_hash = md5(uniqid(rand(), true)).'.'.$ext;
+            //pr($name_hash);die();
+            //spr czy jest katalog covers i jeśli nie ma to go tworzymy mkdir:)
+            if (!is_dir('img/avatars')) {
+                mkdir('img/avatars');
+            }
+            $destination='img/avatars/'.$name_hash;
+
+            if (move_uploaded_file($this->data['User']['avatar']['tmp_name'], $destination)) {
+                // save message to session 
+                $this->Session->setFlash('File uploaded successfuly.');
+
+                $user_update['id'] = $id;
+                $user_update['avatar'] = '/'.$destination;
+                //pr($user_update);die();
+                $this->User->save($user_update);
+                $this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
+
+            } else {
+                $this->Session->setFlash('error while saving file');
+            }
+        }
+    }
 }

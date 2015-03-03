@@ -9,7 +9,6 @@ class BooksController extends AppController {
 
     public function index() {
         $this->Book->recursive= 2;
-
     
         //pobierz wszystkie ksiazki gdzie contain(a wraz z nimi) =>book category, author i w bookcategory jeszcze 'category'
        // $books = $this->Book->find('all', array('contain' => false));->pobierze tylko zawartosc Book bez associated models
@@ -19,10 +18,14 @@ class BooksController extends AppController {
                             'Category'
                         ),
                         'Author'
-                    )
+                    ),
+                    'order' => array('Book.created' => 'desc')
             ));
         //wyslanie/ustawienie zmiennej $books do widoku tak aby byly dostepne pod nazwa 'books' a w view jako $books
         $this->set('books', $books);
+
+        //pr($books);die();
+
     }
 
     public function view($id = null) {
@@ -119,11 +122,15 @@ class BooksController extends AppController {
         //i wyswietlamy je wedlug tabeli created , desc->od najnowszej, asc-> najstarszej
         $comments = $this->Comment->find('all', array('conditions'=>array('book_id'=>$id), 'order' => array('Comment.created' => 'desc')));
         
-        //do $haveNote przypisujemy wszystkie dane z tablei Rating gdzie book_id  jest takie samo jak nasze $id
+        //do $haveNote przypisujemy wszystkie dane z tabeli Rating gdzie book_id  jest takie samo jak nasze $id
         //oraz gdzie w polu user_id jest to samo co w componencie Auth->user('id') czyli id z sesji danego zalogowanego usera
         $haveNote = $this->Rating->find('all', array('conditions'=>array('book_id'=>$id, 'user_id'=>$this->Auth->user('id')))) ; 
-        //pr($haveNote);
-        //die();
+        //pr($haveNote); //die();
+       
+        
+        $usersRatings=$this->Rating->find('all', array('conditions'=>array('book_id'=>$id)));
+        $this->set('usersRatings', $usersRatings);
+
 
         //pod zmienna w widoku books/view dostepna jako $id_book przypisujemy nasze $id
         $this->set('id_book', $id);

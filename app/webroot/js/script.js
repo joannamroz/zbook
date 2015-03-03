@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 	    } else{
 
-	    	alert('uzupełnij tresc komcia debilu!!!!');
+	    	alert("The comment can't be empty!");
 	    }
 
     });
@@ -82,7 +82,7 @@ $(document).ready(function(){
 	        },
 
 	        error:function(){
-	        	pr('nie udało się!');
+	        	pr('Oh no!');
 
 	        }
 	    });
@@ -92,7 +92,51 @@ $(document).ready(function(){
 
 //kazdemu elementowi o zadanej klasie uruchamiamy/selecta2
   $(".use_select2").select2();
+  $('.notrrated').on('mouseover', function(){
+  $('.notrrated').attr('title', 'To rate this book ...');
+  });
   
+  $('.singleMessage').on('click', function() {
+  	$(this).toggleClass('singleMessageBiger');
 
+  });
 
+  // $('.messageContainerAnswer').on('click', function(){
+  	
+  // });
+	$("#messageButton").bind('click', function(){
+    	//alert('białe');
+    	var values = {
+
+    	}
+
+		if($('#msgBodyInput').val() !=""){
+	    	values.body=$('#msgBodyInput').val();
+	    	values.recipient_id=$('#MessageRecipientId').val();
+	    
+
+	    	$.ajax({
+		        url: "/messages/ajax_send",
+		        type: "post",
+		        data: values,
+		        success: function(response){
+
+		        	//console.log(response);
+		        	$('#singleConversation').prepend(response);
+		        	$('#msgBodyInput').val('');//wyczyszczenie pola cody po wysłaniu danych ajaxem
+
+		        },
+
+		        error:function(){
+
+		        }
+
+		    });
+
+	    } else{
+
+	    	alert('This message has no content!');
+	    }
+
+    });
 });

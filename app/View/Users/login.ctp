@@ -6,7 +6,7 @@
 	'class' => array('form-control'),
 	'div'=>false
 	))); ?>
-	<h2 class='form-signin-heading'>Please sign in</h2>
+	<h2 class='form-signin-heading'>Please Login</h2>
 
     <?php echo $this->Form->input('username', array(
         		'type'=>'username',
@@ -19,4 +19,5 @@
 	        	'label' => array('class' => 'sr-only','text' => 'Your password'
 	        	)));
     ?>
-<?php echo $this->Form->end(array('label'=>'Submit', 'class'=>'btn btn-default')); ?>
+<?php echo $this->Form->end(array('label'=>'Submit', 'class'=>'btn btn-lg btn-primary btn-block')); ?>
+<?php echo $this->Html->link('Register', array('controller'=>'Users', 'action'=>'add'), array('class' => 'singin_link'));?>

@@ -16,9 +16,9 @@
     
     <tr>
         <td><?php echo $lp; ?></td>
-        <td>
+        <td><em>
             <?php echo $this->Html->link($book['Book']['title'],
-array('controller' => 'books', 'action' => 'view', $book['Book']['id'])); ?>
+array('controller' => 'books', 'action' => 'view', $book['Book']['id'])); ?></em>
         </td>
         <td><?php echo $this->Html->link($book['Book']['Author']['fullname'], array('controller' => 'authors', 'action' =>'view', $book['Book']['Author']['id'])); ?></td>
         <td> <?php echo $book['Rating']['note'];?></td>

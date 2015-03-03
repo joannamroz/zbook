@@ -14,6 +14,9 @@ class Rating extends AppModel {
     public $belongsTo = array(
         'Book' => array(
             'className' => 'Book'
+        ),
+        'User'=>array(
+            'className'=>'User'
         )
     );
 

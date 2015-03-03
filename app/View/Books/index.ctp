@@ -2,7 +2,8 @@
 <?php
 
 //pr($books);die(); ?>
-<h2>Last added:<div style="margin-bottom:10px; width:100%">
+<h3>Last added:
+<div style="margin-bottom:10px; width:100%">
     <div style="float:right">
 
 
@@ -21,7 +22,7 @@
 
 ?>
     </div>
-</div></h2>
+</div></h3>
 
 <?php  foreach ($books as $book): ?>
     <div class='div_books_container'>
@@ -32,11 +33,11 @@
         <div class='div_book_info'>
             <h3><?php echo $this->Html->link($book['Book']['title'],
 array('controller' => 'books', 'action' => 'view', $book['Book']['id'])); ?></h3>
-    Autor: <span><?php echo $this->Html->link($book['Author']['fullname'], array('controller' => 'authors', 'action' =>'view', $book['Author']['id'])); ?></span>
+    <strong>Autor: </strong>
+        <span><?php echo $this->Html->link($book['Author']['fullname'], array('controller' => 'authors', 'action' =>'view', $book['Author']['id'])); ?></span>
     <br>
-    Rating: <strong><?php echo $book['Book']['avg_rating'];?></strong><small><?php echo ' (Głosy:'.$book['Book']['rating_amount'].')';?></small>
-    <br>
-    Category:<?php if (!empty($book['BookCategory'])){ 
+    <strong>Category: </strong>
+        <?php if (!empty($book['BookCategory'])){ 
             //pr($book['BookCategory']);
                         foreach ($book['BookCategory'] as $key => $category) {
                              echo $category['Category']['name'].' ';
@@ -45,30 +46,50 @@ array('controller' => 'books', 'action' => 'view', $book['Book']['id'])); ?></h3
                     } else { 
                         echo '-';
                     }  ?>
+    <br><br><br>
+    <?php if($book['Book']['avg_rating']!=0) { ?>
+        <div clas="rateContainer">
+            <div class="rateit" id="ratedBook" data-rateit-resetable="false"  data-rateit-step="1"  
+                data-rateit-ispreset="true" 
+                data-rateit-readonly="true"
+                data-rateit-min="0" data-rateit-max="10" data-rateit-value="<?php echo $book['Book']['avg_rating']; ?>">
+            </div>
+            <div class="rateRight">
+                <strong><?php echo $book['Book']['avg_rating'];?></strong><small><?php echo ' (Głosy:'.$book['Book']['rating_amount'].')';?></small>
+            </div>
+        </div>
+    <?php 
+    } else { ?>
+
+        <div class="rateit notrrated" id="rateBook" data-rateit-resetable="false" data-rateit-step="1"  data-rateit-ispreset="true" 
+            data-rateit-min="0" data-rateit-readonly="true" data-rateit-max="10" >
+        </div>
+
+    <?php } ?> 
     <br>
-    Edytuj:
-            <?php
-            
+    <?php if (AuthComponent::user('role')=='admin') {
+    ?>
+    Edit:
+            <?php 
                 echo $this->Html->link(
-                    '<i class="fa fa-pencil-square-o" style="color:orange"></i>',
+                    '<i class="fa fa-pencil fa-fw " style="color:black"></i>',
                     array('action' => 'edit',$book['Book']['id']),
                     array('escape' => false)
                 );
             ?>
     
     <br>
-    Usuń: <?php
+    Delete: <?php
                 echo $this->Form->postLink(
-                    '<i class="fa fa-times" style="color:red"></i>',
+                    '<i class="fa fa-trash-o fa-lg" style="color:black"></i>',
                     array('action' => 'delete', $book['Book']['id']),
                     // array('confirm' => 'Are you sure?'),
                     array('escape'=> false)
                     // array('confirm' => 'Are you sure?')
 
                 );
-            ?>
 
-
+        } ?>
         </div>
         
     </div>
