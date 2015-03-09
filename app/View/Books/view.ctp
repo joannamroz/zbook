@@ -23,7 +23,7 @@
 
 				<div class="col-md-8">
 					<div class="">
-						<h3><strong><?php echo '"'.h($book['Book']['title']).'"'; ?> </strong><i id="heart" class="fa fa-heart
+						<h3><strong><?php echo '<cite>'.h($book['Book']['title']).'</cite>'; ?> </strong><i id="heart" class="fa fa-heart
 								<?php 
 
 								if( count($haveNote)>0) {
@@ -113,7 +113,7 @@
 					<?php  foreach ($comments as $comment):
 					//pr($comment);die();
 					?> 
-					<div><em><?php echo '" '.h($comment['Comment']['body']).' "' ;?></em></div>
+					<div><em><?php echo '<q> '.h($comment['Comment']['body']).' </q>' ;?></em></div>
 					<p><?php echo h($comment['User']['fullname']) ?> <small><em><?php echo $comment['Comment']['created']?></em></small></p>
 					<?php endforeach; ?>
 

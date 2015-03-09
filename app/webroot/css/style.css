@@ -263,7 +263,7 @@ legend {
 }
 
 #messageContainer {
-  width:600px;
+  width:100%;
   border: 1px solid #e5e5e5;
   border-radius: 10px;
   padding:10px;
@@ -273,7 +273,6 @@ legend {
 
 .messageBox {
   height:50px;
-  width:580px;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -282,7 +281,7 @@ legend {
 .messageIcon {
   width: 20%;
   float: left;
-  padding-left: 35px;
+  padding-left: 10px;
   padding-top: 13px;
 }
 
@@ -308,15 +307,14 @@ legend {
 
 .singleMessage {
   height:50px;
-  width:580px;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
   padding:5px;
   margin-bottom: 5px;
 }
 .singleMessageBiger{
-  height:100px;
-  width:580px;
+  height:120px;
+  font-weight: 800;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
   padding:5px;
@@ -325,28 +323,18 @@ legend {
 
 .messageContainerAvatar {
   float:left;
-  width:20%;
-  padding-left: 30px;
+  width:15%;
 }
 
 .messageContainerContent {
   float:left;
-  width:288px;
-  padding-left:10px;
+  width: 85%;
 }
 
-.messageContainerAnswer {
-  float:left;
-  width:140px;
-}
 
 .userMessageImg {
   width:40px;
   height:40px;
-}
-
-.messageIconAnswer {
-  margin-left: 100px;
 }
 
 .senderContent {
@@ -361,8 +349,6 @@ div.singleMessage.singleMessageBiger div.senderContent { display:none}
 div.singleMessage.singleMessageBiger div.senderContentLonger { display:block}
 
 .conversationView {
-  width:60%;
-  border:solid 1px rgb(142, 142, 142);
   margin:auto;
 
 }
@@ -372,6 +358,7 @@ div.singleMessage.singleMessageBiger div.senderContentLonger { display:block}
 }*/
 .messagesForm{
  margin-top:20px;
+ display:none;
 }
 .mineMessage {
  float:left;
@@ -422,3 +409,9 @@ span.clear { clear: both; display: block; }
 body > .container {
   margin-top:1%;
 }
+
+/*#wazne {
+  background-color:red;
+
+  width:200px;
+}*/

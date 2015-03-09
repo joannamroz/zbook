@@ -30,8 +30,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 		echo $this->Html->script('jquery');
 		echo $this->Html->script('bootstrap');
-		echo $this->Html->script('script');
+		echo $this->Html->script('jquery-ui');
 		echo $this->Html->script('jquery.rateit');
+		echo $this->Html->script('jquery.pulse');
+
+		echo $this->Html->script('script');
+		
 		echo $this->Html->script('/../libraries/select2/select2');
 
 		//echo $this->Html->css('cake.generic');
@@ -42,8 +46,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->css('/../libraries/select2/select2.css');
 
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
+		echo $this->fetch('meta');?>
+		<meta http-equiv="refresh" content="300">
+		<?php echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
 </head>

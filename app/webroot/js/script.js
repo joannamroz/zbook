@@ -96,14 +96,16 @@ $(document).ready(function(){
   $('.notrrated').attr('title', 'To rate this book ...');
   });
   
-  $('.singleMessage').on('click', function() {
-  	$(this).toggleClass('singleMessageBiger');
+  // $('.singleMessage').on('mouseenter', function() {
+  // 	$(this).toggleClass('singleMessageBiger',300);
 
-  });
-
-  // $('.messageContainerAnswer').on('click', function(){
-  	
   // });
+  // $('.singleMessage').on('mouseleave', function() {
+  // 	$(this).toggleClass('singleMessageBiger',300);
+
+  // })
+
+  
 	$("#messageButton").bind('click', function(){
     	//alert('białe');
     	var values = {
@@ -139,4 +141,52 @@ $(document).ready(function(){
 	    }
 
     });
+
+    $('.singleMessage').on('click', function(){
+
+    	
+    	var values = {
+    		'recipient_id':$(this).data('recipient-id')
+ 
+    	}
+    	$(this).removeClass('not_read');
+    	$(this).find('.senderContent').pulse('destroy');
+    	$('#MessageRecipientId').val($(this).data('recipient-id'));
+    	$.ajax({
+		        url: "/messages/ajax_view_conversation",
+		        type: "post",
+		        data: values,
+		        success: function(response){
+
+		        	//console.log(response);
+
+		        	//uzupelnij element o id zbiornik_na_kontekt_z_ajaxa trescia z response...
+		        	//http://api.jquery.com/html/  
+
+		        	//Funkcja ta działa podobnie jak append i prepend z ta tylko roznica ze nie dodaje 
+		        	//nowej tresci tylko zastepuje calkiem tresc ktora obecnie sie w danym elemencie znajodwala
+		        	$('.messagesForm').show();
+		        	 $('#zbiornik_na_kontent_z_ajaxa').html(response);
+		        	 $('#msgBodyInput').val('');
+		        	 //Dla testu mozesz to odkomentowac i zauwazyc jak twoja storna bedzie rosla :D
+		        	 //$('#zbiornik_na_kontent_z_ajaxa').append(response);
+
+		        },
+
+		        error:function(){
+
+		        }
+    	});
+	});
+	//alert('aaa');
+	var properties = {
+        'color' : 'red',
+        'font-weight' :800
+
+
+    };
+
+
+	$('.senderContent.not_read').pulse(properties, {pulses:-1 }); 
+		
 });

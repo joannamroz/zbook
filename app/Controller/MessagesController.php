@@ -49,10 +49,10 @@ class MessagesController extends AppController {
         $this->set('messages',$messages);
 
         if (isset($this->request->data['Message'])) {
-
+            //pr($this->request->data['Message']);die();
         	$this->Message->create();
         	$data_to_save=$this->request->data;
-
+            
         	$data_to_save['Message']['sender_id']=$this->Auth->user('id');
         	$data_to_save['Message']['recipient_id']=$id;
 			
@@ -68,22 +68,24 @@ class MessagesController extends AppController {
     }
 	public function ajax_send() {
        $this->layout=false;
+
 		if ($this->request->is('post')) {
 			// var_dump("tak to jest post!");
 
+            //pr($this->data);
     		$this->Message->create();
     		//pr($this->request->data);
     		$this->request->data['sender_id'] = $this->Auth->user('id');
+            //$this->request->data['recipient_id']=$recipient;
     		// pr($this->request->data);die();
 			
     		if ($this->Message->save($this->request->data)) {
     			$id_message = $this->Message->id;
 
     			$message = $this->Message->find('first', array('conditions'=>array('Message.id'=>$id_message)));
-                //$this->Session->setFlash(__('Your book has been saved.'));
-    			//$this->set(compact('users')); to znaczy to samo co to  $this->set('users',$users); 
+            
     			$this->set('message',$message);
-
+               
                 return 1;
             } else{
             	return 0;
@@ -92,4 +94,35 @@ class MessagesController extends AppController {
     		pr('hola hola to nie wiadomość');
 		}
 	}
+
+    public function ajax_view_conversation(){
+
+        // //Ustawienie layout false ( nie potrzebujemy head, navbar footer itd tylko konkretny content)
+        $this->layout=false;
+
+        //pr($this->request->data);
+
+        $recipient_id=$this->request->data['recipient_id'];
+
+        $user_id=$this->Auth->user('id');
+        $messages = $this->Message->find('all', array(
+                    'conditions' => array('OR' => array(array('sender_id'=>$user_id,'recipient_id'=>$recipient_id), array('sender_id'=>$recipient_id,
+                        'recipient_id'=>$user_id))
+                        
+                    ),
+                    'order' => array('Message.created' => 'desc')
+            ));
+
+        $this->set('recipient', $recipient_id);
+        $this->set('messages', $messages);
+        //pr($messages );
+
+       //poniżej zmiana oznaczenia podgladanych wiadomosci jako przeczytane
+        foreach ($messages as $message) {
+            //pr($message);die();
+            $message['Message']['is_read']=1;
+            $this->Message->save($message);
+        }
+
+    }
 }
