@@ -42,7 +42,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->css('style');
 		echo $this->Html->css('rateit');
-		echo $this->Html->css('font-awesome');
+		//echo $this->Html->css('font-awesome');
 		echo $this->Html->css('/../libraries/select2/select2.css');
 
 
@@ -51,6 +51,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<?php echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 <body>
 
