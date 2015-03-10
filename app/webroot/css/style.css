@@ -11,6 +11,9 @@ body {
 img{
   max-width:100%;
 }
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+}
 .footer {
   position: absolute;
   bottom: 0;
@@ -144,17 +147,17 @@ body {
 
 /*color:rgba(123,66,200,0.8)*/
 .div_books_container {
-  width:600px;
-  height:250px;
-  margin-bottom:10px;
-  border: 1px solid rgba(123,66,200,0.8);
-  border-radius:5px;
+  width: 600px;
+  height: 190px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(223, 199, 255, 0.8);
+  border-radius: 5px;
 }
 
 .div_book_cover {
   float: left;
   width: 160px;
-  height: 230px;
+  height: 180px;
   display: inline;
 }
 
@@ -174,8 +177,8 @@ body {
 }
 
 .book_img {
-  width:138px;
-  height:198px;
+width: 120px;
+height: 150px;
 }
 
 .singin_link {
@@ -415,3 +418,11 @@ body > .container {
 
   width:200px;
 }*/
+.badge{
+  background-color: red;
+  color:black;
+}
+.author_more {
+  font-size:12px;
+
+}

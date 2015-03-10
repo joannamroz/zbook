@@ -46,7 +46,7 @@ array('controller' => 'books', 'action' => 'view', $book['Book']['id'])); ?></h3
                     } else { 
                         echo '-';
                     }  ?>
-    <br><br><br>
+    <br>
     <?php if($book['Book']['avg_rating']!=0) { ?>
         <div clas="rateContainer">
             <div class="rateit" id="ratedBook" data-rateit-resetable="false"  data-rateit-step="1"  

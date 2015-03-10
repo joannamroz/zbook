@@ -20,7 +20,9 @@
     <tr>
         <th>Lp. </th>
         <th>Fullname </th>
-        <th>Action </th>
+         <?php if (AuthComponent::user('role')=='admin') { ?>
+            <th>Action </th>
+         <?php } ?>
         <th>Created </th>
         <th>Modified</th>
     </tr>
@@ -34,6 +36,7 @@
             <?php echo $this->Html->link($author['Author']['fullname'],
 array('controller' => 'authors', 'action' => 'view', $author['Author']['id'])); ?>
         </td>
+        <?php if (AuthComponent::user('role')=='admin') { ?>
         <td>
             <?php
                 echo $this->Form->postLink(
@@ -50,6 +53,7 @@ array('controller' => 'authors', 'action' => 'view', $author['Author']['id'])); 
             ?>
 
         </td>
+        <?php } ?>
         <td><?php echo $author['Author']['created']; ?></td>
         <td><?php echo $author['Author']['modified']; ?></td>
     </tr>

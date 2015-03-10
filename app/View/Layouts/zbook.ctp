@@ -70,7 +70,15 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	        <li class=""><a href="/">Strona główna</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	      	<li class=""> <?php echo $this->Html->link('<i class="fa fa-envelope fa-2x"></i>', array('controller'=>'messages', 'action'=>'index'),
+	      <?php 
+	      if($count_msg!=0) {
+	      	$badge='<span class="badge">'.$count_msg.'</span>';
+	      } else {
+	      	$badge='';
+	      }
+	      
+	      ?>
+	      	<li class=""> <?php echo $this->Html->link('<i class="fa fa-envelope fa-lg">'.$badge.'</i>', array('controller'=>'messages', 'action'=>'index'),
 	       array('escape'=>false)); ?> </li>
 	      	<li><?php echo $this->Html->link( 
 	      		$this->Html->image(AuthComponent::user('avatar'), array('class'=>'avatar_img ')).'&nbsp'.AuthComponent::user('username'),
@@ -81,7 +89,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	      		); ?></li>
 
 	      	<li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bars fa-2x"></i> <span class="caret"></span></a>
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bars fa-lg"></i> <span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
 	            <li><?php echo $this->Html->link("User's books", array('controller'=>'users', 'action'=>'user_book'));?></a></li>
 	            <li><?php echo $this->Html->link('Edit', array('controller'=>'users', 'action'=>'edit'));?></a></li>
@@ -93,7 +101,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	        </li>
 
 	        
-	       <li class=""> <?php echo $this->Html->link('<i class="fa fa-power-off fa-2x"></i>', array('controller'=>'users', 'action'=>'logout'),
+	       <li class=""> <?php echo $this->Html->link('<i class="fa fa-power-off fa-lg"></i>', array('controller'=>'users', 'action'=>'logout'),
 	       array('escape'=>false)); ?> </li>
 	      </ul>
 	    </div><!--/.nav-collapse -->

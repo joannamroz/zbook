@@ -67,7 +67,7 @@ class AuthorsController extends AppController {
 	        $this->Author->id = $id;
 	        if ($this->Author->save($this->request->data)) {
 	            $this->Session->setFlash(__('Your author has been updated.'));
-	            return $this->redirect(array('action' => 'index'));
+	            return $this->redirect(array('action' => 'view',$id));
 	        }
 	        $this->Session->setFlash(__('Unable to update your author.'));
 	    }
@@ -75,6 +75,40 @@ class AuthorsController extends AppController {
 	    if (!$this->request->data) {
 	        $this->request->data = $author;
 	    }
+	}
+	public function add_photo($id = null) {
+		//pr($id);die();
+        $this->Author->id = $id;
+        if ($this->request->is('post'))  {
+            //pr($this->request->data);
+            $filename = $this->request->data['Author']['photo']['name'];
+            //pr($filename);
+
+            //do zmiennej $ext pobieramy funkcje pathinfo rozszerzenei pliku
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+            //pr($ext);
+            // do zmiennej name_hash wpisujemy losowy "hash" ktorym bedzie nowa nazwa nazsego pliczku I doklejamy kropke oraz rozszerzenie zeby powstala dobra nazwa pliczku
+            $name_hash = md5(uniqid(rand(), true)).'.'.$ext;
+            //pr($name_hash);die();
+            //spr czy jest katalog covers i jeśli nie ma to go tworzymy mkdir:)
+            if (!is_dir('img/authors_photo')) {
+                mkdir('img/authors_photo');
+            }
+            $destination='img/authors_photo/'.$name_hash;
+            //pr($destination);
+            if (move_uploaded_file($this->data['Author']['photo']['tmp_name'], $destination)) {
+                // save message to session 
+                $this->Session->setFlash('File uploaded successfuly.');
+                $author_update['id'] = $id;
+                $author_update['photo'] = '/'.$destination;
+                //pr($book_update);die();
+                $this->Author->save($author_update);
+
+            } else {
+                $this->Session->setFlash('errr while saving file');
+            }
+           return $this->redirect(array('action' => 'view',$id)); 
+        }
 	}
 
 }

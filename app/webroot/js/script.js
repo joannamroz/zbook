@@ -187,6 +187,12 @@ $(document).ready(function(){
     };
 
 
-	$('.senderContent.not_read').pulse(properties, {pulses:-1 }); 
+	$('.senderContent.not_read').pulse(properties, {pulses:-1 }); //-1 means that will never stop pulsing
+	$('#author_more').hide();
+	$('#showMore').on('click', function(){
+		$('#author_more').show();
+		$('#showMore').hide();
+	});
+
 		
 });

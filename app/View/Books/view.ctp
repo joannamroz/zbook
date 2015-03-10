@@ -124,29 +124,30 @@
 
 
 	</div>
-
-  	<div class="col-md-4">
-		<div class="">
-			<div class=""><h4><?php echo 'Oceniło '.(count($usersRatings)).' użytkowników:';?></h4></div>
-				<?php foreach ($usersRatings as $userRating) : ?>
-					<div>
+	<?php if(count($usersRatings)!=0) { ?>
+	  	<div class="col-md-4">
+			<div class="">
+				<div class=""><h4><?php echo 'Oceniło '.(count($usersRatings)).' użytkowników:';?></h4></div>
+					<?php foreach ($usersRatings as $userRating) : ?>
 						<div>
-							<h4><?php echo $this->Html->link($userRating['User']['username'], array('controller'=>'users', 'action'=>'view_user', $userRating['User']['id']));?></h4>
-						</div>
-						
-						<div class=" ">
-                			<strong><?php echo ' '.$userRating['Rating']['note'].' ';?></strong>
-                			<div class="rateit viewBook left" id="ratedBook" data-rateit-resetable="false"  data-rateit-step="1"  
-								data-rateit-ispreset="true" data-rateit-readonly="true"
-								data-rateit-min="0" data-rateit-max="10" data-rateit-value="<?php echo $userRating['Rating']['note']; ?>">
+							<div>
+								<h4><?php echo $this->Html->link($userRating['User']['username'], array('controller'=>'users', 'action'=>'view_user', $userRating['User']['id']));?></h4>
 							</div>
-            			</div>
-					</div>
-				<?php endforeach; ?>
-			
-			</div>	
-		 </div>	
-	</div>
+							
+							<div class=" ">
+	                			<strong><?php echo ' '.$userRating['Rating']['note'].' ';?></strong>
+	                			<div class="rateit viewBook left" id="ratedBook" data-rateit-resetable="false"  data-rateit-step="1"  
+									data-rateit-ispreset="true" data-rateit-readonly="true"
+									data-rateit-min="0" data-rateit-max="10" data-rateit-value="<?php echo $userRating['Rating']['note']; ?>">
+								</div>
+	            			</div>
+						</div>
+					<?php endforeach; ?>
+				
+				</div>	
+			 </div>	
+		</div>
+	<?php } ?>
 
   </div>
 </div>

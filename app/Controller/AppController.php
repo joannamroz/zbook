@@ -72,4 +72,10 @@ class AppController extends Controller {
     	//pr('tutaj beforeFilter AppController');
         //$this->Auth->allow('index', 'view');
     }
+    public function beforeRender() {
+        $this->loadModel('Message');
+        $count_msg=$this->Message->countUnread();
+        
+        $this->set('count_msg', $count_msg);
+    }
 }

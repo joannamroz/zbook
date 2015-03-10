@@ -343,7 +343,7 @@ class BooksController extends AppController {
             } else {
                 $this->Session->setFlash('errr while saving file');
             }
-            
+           return $this->redirect(array('action' => 'view',$id)); 
         }
-    }
+    } 
 }
