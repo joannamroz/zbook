@@ -40,7 +40,7 @@
 							<?php
 							if (!empty($book['BookCategory'])) { ?>
 
-							  		<?php echo 'Category: ';
+							  		<?php echo $this->Html->link('Categories: ',array('controller'=>'categories','action'=>'index'));
 							  		$book_categories=$book['BookCategory'];
 							  		//pr($book_categories);
 							  		foreach ($book_categories as $key => $category) {

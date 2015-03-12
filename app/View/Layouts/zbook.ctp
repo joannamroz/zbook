@@ -42,7 +42,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->css('style');
 		echo $this->Html->css('rateit');
-		//echo $this->Html->css('font-awesome');
+		// 	echo $this->Html->css('font-awesome');
 		echo $this->Html->css('/../libraries/select2/select2.css');
 
 

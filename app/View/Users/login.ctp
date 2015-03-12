@@ -20,4 +20,4 @@
 	        	)));
     ?>
 <?php echo $this->Form->end(array('label'=>'Submit', 'class'=>'btn btn-lg btn-primary btn-block')); ?>
-<?php echo $this->Html->link('Register', array('controller'=>'Users', 'action'=>'add'), array('class' => 'singin_link'));?>
+<?php echo $this->Html->link('Register', array('controller'=>'users', 'action'=>'add'), array('class' => 'singin_link'));?>

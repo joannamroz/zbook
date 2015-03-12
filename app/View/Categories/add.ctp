@@ -1,22 +1,22 @@
-<h2>Add Category</h2>
+<h3>Add Category</h3>
 <?php
-echo $this->Form->create('Category'); 
-?>
-
-<div>
-	<?php
-		echo $this->Form->input('name', array(
-			'div' => false,
-			'label' =>false,
-			'placeholder'=>'Add category'
-		));
-?>
+echo $this->Form->create('Category', array(
+                                            'class'=>'form-horizontal'
+                                            
+                              ));?>
+<div class="form-group">
+    <label for="inputName" class="col-sm-2 control-label ">Name:</label>
+    <div class="col-sm-10">
+      <?php echo $this->Form->input('name', array('class' => 'form-control shortInput',
+            'label'=>false,
+            'div'=>false
+        ));?>
+    </div>
 </div>
-<?php
-echo $this->Form->end(array(
-	'label'=>'Save',
-	'class'=>'btn btn-default'));
-//echo $this->Form->end('Save Category');
 
-?>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10 ">
+      <button type="submit" class="btn btn-default"><strong>Save</strong></button>
+    </div>
+</div>
  

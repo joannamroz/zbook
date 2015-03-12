@@ -75,6 +75,7 @@ class AuthorsController extends AppController {
 	    if (!$this->request->data) {
 	        $this->request->data = $author;
 	    }
+       
 	}
 	public function add_photo($id = null) {
 		//pr($id);die();

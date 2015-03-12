@@ -413,12 +413,7 @@ body > .container {
   margin-top:1%;
 }
 
-/*#wazne {
-  background-color:red;
-
-  width:200px;
-}*/
-.badge{
+.badge {
   background-color: red;
   color:black;
 }
@@ -426,3 +421,14 @@ body > .container {
   font-size:12px;
 
 }
+.form-control.dataType {
+  display:inline-block;
+  width:32%;
+}
+.col-sm-offset-2.col-sm-10.authorButton {margin-left: 8.666667%;}
+
+#isDead { width: 4%;}
+
+.form-group.died {display:none;}
+
+.shortInput {width:35%;}

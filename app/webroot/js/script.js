@@ -193,6 +193,9 @@ $(document).ready(function(){
 		$('#author_more').show();
 		$('#showMore').hide();
 	});
-
+	
+	$('#isDead').on('click', function(){
+		$('.form-group.died').toggle();
+	});
 		
 });

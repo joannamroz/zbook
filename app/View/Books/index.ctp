@@ -66,31 +66,32 @@ array('controller' => 'books', 'action' => 'view', $book['Book']['id'])); ?></h3
         </div>
 
     <?php } ?> 
-    <br>
-    <?php if (AuthComponent::user('role')=='admin') {
-    ?>
-    Edit:
-            <?php 
-                echo $this->Html->link(
-                    '<i class="fa fa-pencil fa-fw " style="color:black"></i>',
-                    array('action' => 'edit',$book['Book']['id']),
-                    array('escape' => false)
-                );
+        <div class='editDeleteContainer'>
+            <?php if (AuthComponent::user('role')=='admin') {
             ?>
-    
-    <br>
-    Delete: <?php
-                echo $this->Form->postLink(
-                    '<i class="fa fa-trash-o fa-lg" style="color:black"></i>',
-                    array('action' => 'delete', $book['Book']['id']),
-                    // array('confirm' => 'Are you sure?'),
-                    array('escape'=> false)
-                    // array('confirm' => 'Are you sure?')
+            Edit:
+                    <?php 
+                        echo $this->Html->link(
+                            '<i class="fa fa-pencil fa-fw " style="color:black"></i>',
+                            array('action' => 'edit',$book['Book']['id']),
+                            array('escape' => false)
+                        );
+                    ?>
+            
+            <br>
+            Delete: <?php
+                        echo $this->Form->postLink(
+                            '<i class="fa fa-trash-o fa-lg" style="color:black"></i>',
+                            array('action' => 'delete', $book['Book']['id']),
+                            // array('confirm' => 'Are you sure?'),
+                            array('escape'=> false)
+                            // array('confirm' => 'Are you sure?')
 
-                );
+                        );
 
-        } ?>
+                } ?>
         </div>
+    </div>
         
     </div>
 <?php endforeach; ?>
