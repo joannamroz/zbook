@@ -65,29 +65,28 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	        <span class="icon-bar"></span>
 	      </button>
 	      <a class="navbar-brand" href="/">zBook</a>
-	    </div>
+	    </div> <!-- navbar-header -->
 	    <div id="navbar" class="navbar-collapse collapse">
 	      <ul class="nav navbar-nav">
 	        <li class=""><a href="/">Strona główna</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	      <?php 
-	      if($count_msg!=0) {
-	      	$badge='<span class="badge">'.$count_msg.'</span>';
-	      } else {
-	      	$badge='';
-	      }
-	      
-	      ?>
-	      	<li class=""> <?php echo $this->Html->link('<i class="fa fa-envelope fa-lg">'.$badge.'</i>', array('controller'=>'messages', 'action'=>'index'),
-	       array('escape'=>false)); ?> </li>
+		      <?php 
+		      if($count_msg!=0) {
+		      	$badge='<span class="badge">'.$count_msg.'</span>';
+		      } else {
+		      	$badge='';
+		      }
+		      
+		      ?>
+	      	<li class=""> <?php echo $this->Html->link('<i class="fa fa-envelope fa-lg">'.$badge.'</i>', array('controller'=>'messages', 'action'=>'index'), array('escape'=>false)); ?> </li>
 	      	<li><?php echo $this->Html->link( 
 	      		$this->Html->image(AuthComponent::user('avatar'), array('class'=>'avatar_img ')).'&nbsp'.AuthComponent::user('username'),
 	      		array('controller'=>'users', 'action'=>'profile'),
 	      		array('class'=>'link_photo',
 	      			'escape'=>false)
 
-	      		); ?></li>
+	      	); ?></li>
 
 	      	<li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bars fa-lg"></i> <span class="caret"></span></a>
@@ -106,8 +105,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	       array('escape'=>false)); ?> </li>
 	      </ul>
 	    </div><!--/.nav-collapse -->
-	  </div>
-	</nav>
+	  </div>  <!-- container -->
+	</nav> <!-- navbar navbar-default navbar-fixed-top -->
 
 	<div id="content" class="container"> 
 		<?php ?>
@@ -118,7 +117,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	</div>
 	<footer class="footer" >
 	  <div class="container" >
-	    <p class="text-muted">Place sticky footer content here.</p>
+	    <p class="text-muted">
+
+	    	<span ><?php echo 'zBook';?> | <?php echo $this->Html->link(' add book ',array('controller'=>'books','action'=>'add'),array('class' => 'footerLinks')
+					);?> | <?php echo $this->Html->link(' add author ', array('controller'=>'authors', 'action'=>'add'),array('class' => 'footerLinks'));?> | <?php echo $this->Html->link(' add category ', array('controller'=>'categories', 'action'=>'add'),array('class' => 'footerLinks'));?> | <?php echo $this->Html->link(' all users ',array('controller'=>'users','action'=>'index'),array('class' => 'footerLinks')
+					);?></span>
+
+	    </p>
 	    
 	    <?php //echo $this->element('sql_dump'); ?>
 	  </div>

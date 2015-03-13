@@ -3,7 +3,6 @@
   <div class="row">
 
 	<div class="col-md-6">
-	<div id="wazne">Wazny tekst</div>
 		<div id='messageContainer'>
 			<div class='messageBox'>
 				<div class='messageIcon'><div class='messageIconBig'></div></div>

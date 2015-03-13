@@ -10,6 +10,7 @@ App::uses('Rating', 'Model');
 
 class UsersController extends AppController {
 
+    public $components = array('Paginator');
      public function beforeFilter() {
         parent::beforeFilter();
         // Allow users to register and logout.
@@ -18,7 +19,13 @@ class UsersController extends AppController {
 
     public function index() {
         $this->User->recursive = 0;
-        $this->set('users', $this->paginate());
+        $this->Paginator->settings = array(    
+           'order' => array('User.fullname'=>'asc')
+        );
+        $users = $this->Paginator->paginate('User');
+        
+        // $users=$this->User->find('all',array('order' => array('User.fullname' => 'asc')));->drugi sposób bez paginacji
+        $this->set('users',$users);
     }
 
     public function view($id = null) {
@@ -29,7 +36,9 @@ class UsersController extends AppController {
         //do zmiennej $user_data przypisujemy pobrany jeden rekord z bazy danych z tabeli users 
         //read() is used to retrieve a single record from the database, $id specifies the ID of the record to be read
         $user_data=$this->User->read(null, $id);
+
         $this->set('user', $user_data);
+        
     }
 
     public function add() {
@@ -90,7 +99,7 @@ class UsersController extends AppController {
         $this->layout='notlogged';
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                return $this->redirect($this->Auth->redirectUrl());
+                return $this->redirect(array('controller'=>'books', 'action' => 'index'));
             }
             $this->Session->setFlash(__('Invalid username or password, try again'));
         }
@@ -163,6 +172,11 @@ class UsersController extends AppController {
 
         }
 
+        $this->loadModel('Friend');
+        $isAFriend=$this->Friend->find('first', array('conditions'=>array('Friend.recipient_id'=>$id,'Friend.sender_id'=>AuthComponent::user('id'))));
+        $isAFriend=count($isAFriend);
+        $this->set('isAFriend',$isAFriend);
+
     }
     public function edit_avatar($id = null) {
         $this->User->id = $id;
@@ -198,4 +212,5 @@ class UsersController extends AppController {
             }
         }
     }
+    
 }

@@ -90,20 +90,20 @@ $(document).ready(function(){
 
   	});
 
-//kazdemu elementowi o zadanej klasie uruchamiamy/selecta2
-  $(".use_select2").select2();
-  $('.notrrated').on('mouseover', function(){
-  $('.notrrated').attr('title', 'To rate this book ...');
-  });
-  
-  // $('.singleMessage').on('mouseenter', function() {
-  // 	$(this).toggleClass('singleMessageBiger',300);
+	//kazdemu elementowi o zadanej klasie uruchamiamy/selecta2
+	  $(".use_select2").select2();
+	  $('.notrrated').on('mouseover', function(){
+	  $('.notrrated').attr('title', 'To rate this book ...');
+	  });
+	  
+	  // $('.singleMessage').on('mouseenter', function() {
+	  // 	$(this).toggleClass('singleMessageBiger',300);
 
-  // });
-  // $('.singleMessage').on('mouseleave', function() {
-  // 	$(this).toggleClass('singleMessageBiger',300);
+	  // });
+	  // $('.singleMessage').on('mouseleave', function() {
+	  // 	$(this).toggleClass('singleMessageBiger',300);
 
-  // })
+	  // })
 
   
 	$("#messageButton").bind('click', function(){
@@ -197,5 +197,23 @@ $(document).ready(function(){
 	$('#isDead').on('click', function(){
 		$('.form-group.died').toggle();
 	});
-		
+
+	$('#newFriend').on('click', function(){
+		console.log('cliknięte!');
+		var values = {
+    		'recipient_id':$(this).data('recipient-id')
+ 
+    	}
+    	$.ajax({
+		        url: "/friends/addFriend",
+		        type: "post",
+		        data: values,
+		        success: function(response){
+		        	$('#newFriend').text('Request sent');
+		        },
+		        error:function(){
+
+		        }
+		});
+    });
 });

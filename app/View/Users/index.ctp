@@ -1,22 +1,9 @@
-<div>
-<?php
-echo '<table class="table table-bordered">
-		<tr>
-			<th>Nr </th>
-			<th><strong>Users: </strong></th>
-			
-		</tr>';
-		?>
-<?php $lp=1; ?>
-<?php  foreach ($users as $user ) :  ?>
-		 <tr>
-		 	<td><?php echo $lp ?></td>
-		 	<td><?php echo $user['User']['username'] ?></td>
-		 </tr>
- 
-<?php $lp++; 
- endforeach; 
-echo '</table>';?>
-<?php //pr($users); ?>
+<h2>Users:</h2>
 
+<div class="list-group">
+	<?php $lp=1; ?>
+	<?php  foreach ($users as $user ) :  ?>
+	<?php echo $this->Html->link($lp.'. '.$user['User']['fullname'].'  ('.$user['User']['username'].')', array('controller'=>'users','action'=>'view_user', $user['User']['id']),array('class' => 'list-group-item'));?> 
+	<?php $lp++; 
+ 	endforeach; ?>
 </div>
