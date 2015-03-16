@@ -21,7 +21,7 @@
 array('controller' => 'books', 'action' => 'view', $book['Book']['id'])); ?></em>
         </td>
         <td><?php echo $this->Html->link($book['Book']['Author']['fullname'], array('controller' => 'authors', 'action' =>'view', $book['Book']['Author']['id'])); ?></td>
-        <td> <?php echo $book['Rating']['note'];?></td>
+        <td> <?php echo h($book['Rating']['note']);?></td>
         <td><?php if($book['Rating']['favourited']==1){ echo '<i  id="heart" class="fa fa-heart highlight"></i>';} else { echo '<i  id="heart" class="fa fa-heart"></i>'; } ?></td>
     </tr>
     <?php $lp++;?>

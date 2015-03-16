@@ -36,15 +36,15 @@
 						</h3>
 
 						<?php //pr($id_book); ?>
-						<h3><?php echo  $this->Html->link($book['Author']['fullname'], array('controller'=>'authors', 'action'=>'view', $book['Author']['id']));?></h3>
+						<h3><?php echo  $this->Html->link(h($book['Author']['fullname']), array('controller'=>'authors', 'action'=>'view', $book['Author']['id']));?></h3>
 							<?php
-							if (!empty($book['BookCategory'])) { ?>
+							if (!empty(h($book['BookCategory'])) { ?>
 
 							  		<?php echo $this->Html->link('Categories: ',array('controller'=>'categories','action'=>'index'));
 							  		$book_categories=$book['BookCategory'];
 							  		//pr($book_categories);
 							  		foreach ($book_categories as $key => $category) {
-							  			echo '<span class="label label-warning">'.$category['Category']['name'].' </span>&nbsp; '  ;
+							  			echo '<span class="label label-warning">'.h($category['Category']['name']).' </span>&nbsp; '  ;
 							  		} ?>
 							  		
 							<?php
@@ -134,10 +134,10 @@
 							</div>
 							
 							<div class=" ">
-	                			<strong><?php echo ' '.$userRating['Rating']['note'].' ';?></strong>
+	                			<strong><?php echo ' '.h($userRating['Rating']['note']).' ';?></strong>
 	                			<div class="rateit viewBook left" id="ratedBook" data-rateit-resetable="false"  data-rateit-step="1"  
 									data-rateit-ispreset="true" data-rateit-readonly="true"
-									data-rateit-min="0" data-rateit-max="10" data-rateit-value="<?php echo $userRating['Rating']['note']; ?>">
+									data-rateit-min="0" data-rateit-max="10" data-rateit-value="<?php echo h($userRating['Rating']['note']); ?>">
 								</div>
 	            			</div>
 						</div>

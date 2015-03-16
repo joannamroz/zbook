@@ -22,9 +22,9 @@
 				if($message['Message']['recipient_id']==AuthComponent::user('id'))	{ ?>
 					<div class='messageContainerAvatar'><?php echo $this->Html->image($message['Sender']['avatar'],array('class'=>'userMessageImg')); ?></div>
 		        <div class='messageContainerContent'>
-		        	<div class='messageContainerSender'><?php echo ucfirst($message['Sender']['username']); ?>
+		        	<div class='messageContainerSender'><?php echo ucfirst(h($message['Sender']['username'])); ?>
 		        	</div>
-		        	<?php $msg=ucfirst($message['Message']['body']) ?>
+		        	<?php $msg=ucfirst(h($message['Message']['body'])) ?>
 		        	<?php if ($message['Message']['is_read']==0) { ?>
 		        		<div class='senderContent not_read'>
 						<?php echo String::truncate($msg,20,array('ellipsis' => '[ ...more]','exact' => false)); ?>
@@ -43,9 +43,9 @@
 				} else { ?>
 					<div class='messageContainerAvatar'><?php echo $this->Html->image($message['Recipient']['avatar'],array('class'=>'userMessageImg')); ?></div>
 		        <div class='messageContainerContent'>
-		        	<div class='messageContainerSender'><?php echo ucfirst($message['Recipient']['username']); ?>
+		        	<div class='messageContainerSender'><?php echo ucfirst(h($message['Recipient']['username'])); ?>
 		        	</div>
-		        	<?php $msg=ucfirst($message['Message']['body']) ?>
+		        	<?php $msg=ucfirst(h($message['Message']['body'])) ?>
 		        	<div class='senderContent'><?php echo String::truncate(
 	    $msg,20,array('ellipsis' => ' [ ...more]','exact' => false)); ?>
 		        	</div>

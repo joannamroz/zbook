@@ -37,10 +37,10 @@ array('controller' => 'books', 'action' => 'view', $book['Book']['id'])); ?></h3
         <span><?php echo $this->Html->link($book['Author']['fullname'], array('controller' => 'authors', 'action' =>'view', $book['Author']['id'])); ?></span>
     <br>
     <strong>Category: </strong>
-        <?php if (!empty($book['BookCategory'])){ 
+        <?php if (!empty(h($book['BookCategory']))){ 
             //pr($book['BookCategory']);
                         foreach ($book['BookCategory'] as $key => $category) {
-                             echo $category['Category']['name'].' ';
+                             echo h($category['Category']['name']).' ';
                         }
 
                     } else { 
