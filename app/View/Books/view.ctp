@@ -38,7 +38,7 @@
 						<?php //pr($id_book); ?>
 						<h3><?php echo  $this->Html->link(h($book['Author']['fullname']), array('controller'=>'authors', 'action'=>'view', $book['Author']['id']));?></h3>
 							<?php
-							if (!empty(h($book['BookCategory'])) { ?>
+							if (!empty($book['BookCategory'])) { ?>
 
 							  		<?php echo $this->Html->link('Categories: ',array('controller'=>'categories','action'=>'index'));
 							  		$book_categories=$book['BookCategory'];
