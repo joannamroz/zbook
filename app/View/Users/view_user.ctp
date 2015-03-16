@@ -6,17 +6,18 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-6">
-			<div class="messageForm">
+			<div class="messageForm" id="msgFormViewUser">
 				<?php echo $this->Form->create('Message', array(
 				                                            'class'=>'form-horizontal'
 				                                            
 				                              ));?>
 				<div class="form-group">
-				    <label for="inputTitle" class="col-sm-2 control-label add_author_input"></label>
+				    <label for="inputBody" class="col-sm-2 control-label add_author_input"></label>
 				    <div class="col-sm-10">
-				      <?php echo $this->Form->input('title', array('class' => 'form-control',
+				      <?php echo $this->Form->input('body', array('class' => 'form-control',
+				      		'id'=>'messageSend',
 				            'label'=>false,
-				            'placeholder'=>'Message:',
+				            'placeholder'=>'Press enter to send a message:',
 				            'type' => 'textarea',
 				            'div'=>false
 				        ));?>
@@ -24,7 +25,7 @@
 				</div>                             
 				<?php
 				echo $this->Form->input('id', array('type' => 'hidden'));
-				echo $this->Form->input('recipient_id', array('type' => 'hidden'));
+				echo $this->Form->input('recipient_id', array('type' => 'hidden', 'value'=>$user_info['User']['id']));
 				echo $this->Form->input('sender_id', array('type' => 'hidden'));?>
 				<div class="form-group">
 				    <div class="col-sm-offset col-sm-10">

@@ -27,12 +27,14 @@ $(document).ready(function(){
 
  
     });
-    $("#przycisk_do_komciow").bind('click', function(){
-    	//alert('białe');
-    	var values={};
-
-		if($('#komcio').val() !=""){
-	    	values.body=$('#komcio').val();
+  
+	$('#bodyComment').keypress(function (e) {
+		var key = e.which;
+	 	if(key == 13)  // the enter key code
+	  	{
+	  		var values={};
+	  	if($('#bodyComment').val() !=""){
+	    	values.body=$('#bodyComment').val();
 	    	values.book_id=book_id;
 
 	    	$.ajax({
@@ -43,8 +45,8 @@ $(document).ready(function(){
 
 		        	console.log(response);
 
-		        	$("#zbiornik_komciow").prepend(response);
-		        	$('#komcio').val('');
+		        	$("#commentsContainer").prepend(response);
+		        	$('#bodyComment').val('');
 
 		        },
 
@@ -58,8 +60,13 @@ $(document).ready(function(){
 
 	    	alert("The comment can't be empty!");
 	    }
+	    $('input[name = butAssignProd]').click();
+	    	return false;  
+	  	}
 
-    });
+	});   
+
+
 
   	$("#heart").on('click', function(){
 
@@ -96,16 +103,54 @@ $(document).ready(function(){
 	  $('.notrrated').attr('title', 'To rate this book ...');
 	  });
 	  
-	  // $('.singleMessage').on('mouseenter', function() {
-	  // 	$(this).toggleClass('singleMessageBiger',300);
+	  $('.singleMessage').on('mouseenter', function() {
+	  	$(this).toggleClass('singleMessageBiger',300);
 
-	  // });
-	  // $('.singleMessage').on('mouseleave', function() {
-	  // 	$(this).toggleClass('singleMessageBiger',300);
+	  });
+	  $('.singleMessage').on('mouseleave', function() {
+	  	$(this).toggleClass('singleMessageBiger',300);
 
-	  // })
+	  })
 
-  
+  	$('#messageSend').keypress(function (e) { 
+		var key = e.which;
+	 	if(key == 13)  // the enter key code
+	  	{
+	  		var values={};
+	  	if($('#messageSend').val() !=""){
+	    	values.body=$('#messageSend').val();
+	    	values.recipient_id=$('#MessageRecipientId').val();
+	    	
+	    	$.ajax({
+		        url: "/messages/ajax_send",
+		        type: "post",
+		        data: values,
+		        success: function(response){
+
+		        	console.log(response);
+		        	$('#msgFormViewUser').append('<h5 class="enterSend">Your message has been send!</h5>');
+		        	$('#messageSend').val('');
+
+
+		        },
+
+		        error:function(){
+
+		        }
+
+		    });
+
+	    } else{
+
+	    	alert("The message can't be empty!");
+	    }
+	    $('input[name = butAssignProd]').click();
+	    	return false;  
+	  	}
+
+	});   
+
+
 	$("#messageButton").bind('click', function(){
     	//alert('białe');
     	var values = {
@@ -199,7 +244,6 @@ $(document).ready(function(){
 	});
 
 	$('#newFriend').on('click', function(){
-		console.log('cliknięte!');
 		var values = {
     		'recipient_id':$(this).data('recipient-id')
  
@@ -216,4 +260,107 @@ $(document).ready(function(){
 		        }
 		});
     });
+    $('#invitations').on('click', function(){
+    	$('#headerFriends').text('Invitations');
+    	$('#friendsList').hide();
+    	$('#invitationsList').show();
+    });
+
+    $('#friends').on('click', function(){
+    	$('#headerFriends').text('Friends');
+    	$('#invitationsList').hide();
+    	$('#friendsList').show();
+    	
+    });
+    $('.deleteRequest').on('click', function(){
+    	var values = {
+	    	'sender_id':$(this).data('sender-id')
+	    	}
+
+	    	$.ajax({
+	        url: "/friends/delete_request",
+	        type: "post",
+	        data: values,
+	        success: function(response){
+	        	//alert( response);
+	        	$('#singleFriendInvitation').remove();
+	        },
+
+	        error:function(){
+	        	pr('Oh no!');
+
+	        }
+    	});
+	});
+
+	$('.confirmFriend').on('click', function(){
+
+		checkInvitations();
+
+    	var values = {
+	    	'sender_id':$(this).data('sender-id')
+	    	}
+
+	    	$.ajax({
+	        url: "/friends/confirm",
+	        type: "post",
+	        data: values,
+	        success: function(response){
+	        	//alert( response);
+	        	$('#singleFriendInvitation').remove();
+	        	//tutaj
+	        },
+
+	        error:function(){
+	        	pr('Oh no!');
+
+	        }
+    	});
+	});
+
+	$('.removeFriend').on('click', function(){
+    	var values = {
+	    	'sender_id':$(this).data('sender-id')
+	    	}
+
+	    	console.log('kliknięto');
+	    	$.ajax({
+	        url: "/friends/delete_friend",
+	        type: "post",
+	        data: values,
+	        success: function(response){
+	        	//alert( response);
+	        	$('#singleFriendInfo').remove();
+	        },
+
+	        error:function(){
+	        	pr('Oh no!');
+
+	        }
+    	});
+	});
+
+	//$('badgeFriend').on('click', function(){
+	//	$('.fa-users').html('<i class="fa fa-users fa-lg"></i>');
+	//});
+	function checkInvitations(){
+		var badges=$('#badgeFriend span').text();
+		badges=parseInt(badges);
+		badges=badges-1;
+		console.log(badges);
+		if(badges>0){
+			$('#badgeFriend span').text(badges);
+		}else{
+			$('#badgeFriend span').remove();
+		}
+	
+
+
+	}
+	$('#badgeFriend').on('click', function(){
+	
+	});
+
+
+
 });

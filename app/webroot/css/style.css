@@ -19,10 +19,12 @@ footer {
   bottom: 0;
   width: 100%;
   height: 60px;
-  background-color: rgba(252, 194, 218, 1);
+  background-color: rgba(249, 200, 117, 1);
   border-color: #e7e7e7;
 }
-
+a {
+  color:#BC5830;
+}
 
 /* Custom page CSS
 -------------------------------------------------- */
@@ -36,7 +38,7 @@ body > .container {
   margin: 20px 0;
 }
 .navbar-default {
-  background-color: rgba(252, 194, 218, 1);
+  background-color:rgba(249, 200, 117, 1);
   border-color: #e7e7e7;
 }
 .footer > .container {
@@ -62,7 +64,7 @@ code {
 
 
 .table.table-bordered {
-  color:rgba(123,66,200,0.8);
+  color:#BC5830;
 }
 
 body {
@@ -210,14 +212,14 @@ body {
   width:70%;
 }
 
-.commentsForm {
+/*.commentsForm {
   float:right;
   margin-top:50px;
   width:30%;
- /* border:2px solid grey;*/
+  border:2px solid grey;
 }
-
-#zbiornik_komciow {
+*/
+#commentsContainer {
   margin-left:15px;
 }
 
@@ -322,10 +324,10 @@ fa {
 .singleMessageBiger{
   height:120px;
   font-weight: 800;
-  border: 1px solid #e5e5e5;
+  /*border: 1px solid #e5e5e5;
   border-radius: 5px;
   padding:5px;
-  margin-bottom: 5px;
+  margin-bottom: 5px;*/
 }
 
 .messageContainerAvatar {
@@ -440,7 +442,7 @@ body > .container {
 .footerLinks{
   cursor: pointer;
   font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: rgba(123,66,200,0.8);
+  color: #BC5830;
   font-size: 14px;
   width: 100%;
   bottom: 5px;
@@ -474,21 +476,114 @@ body > .container {
   text-align: right;
 }
 #newFriend{
-  border:solid 1px #adadad;
-  border-radius:10px;
-  margin-top:10px;
-  padding:5px;
+ 
   text-align:center;
-  color:rgba(123,66,200,0.8);
   cursor:pointer;
+  border:solid 1px #BEBEBE;
+  border-radius:15px;
+  padding:7px 8px;
+  background-color:#F9E6E5; 
+  color:#BC5830;
+  font-weight:bold;
+  letter-spacing: .1em;
+  margin-left:5px;
+  margin-top:5px;
 
 }
 .friendAdded{
-  border:solid 1px #adadad;
-  border-radius:10px;
-  margin-top:10px;
-  padding:5px;
-  text-align:center;
-  color:rgba(123,66,200,0.8);
+  border:solid 1px #BEBEBE;
+  border-radius:15px;
+  padding:7px 8px;
+  background-color:#F9E6E5; 
+  color:#BC5830;
+  font-weight:bold;
+  letter-spacing: .1em;
+  margin-left:5px;
+  margin-top:5px;
   cursor:pointer;
+  text-align:center;
+}
+.addCover{
+  margin-top:4px;
+}
+#bodyComment{
+  width:90%;
+  height:80px;
+  margin-top:20px;
+}
+#messageSend{
+  width:60%;
+  height:80px;
+  margin-top:20px;
+}
+.enterSend{
+  color:red;
+}
+.navbar-default .navbar-nav > li > a {
+color: #BC5830;
+}
+.navbar-default .navbar-brand {
+  color: #000;
+}
+.caret {
+  display: inline-block;
+  width: 19px;
+  height: 10px;
+  margin-left: 4px;
+  vertical-align: middle;
+  border-top: 9px solid;
+  border-right: 9px solid transparent;
+  border-left: 9px solid transparent;
+}
+.containerFriendLinks {
+  margin-left: 910px;
+  margin-bottom: -16px;
+}
+.friendsLinks{
+  cursor: pointer;
+  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #BC5830;
+  font-size: 14px;
+  width: 100%;
+  bottom: 5px;
+  padding:0 5px 0 6px;
+  letter-spacing: .1em;
+}
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #BC5830;
+}
+.friendImage{
+  width:75px;
+  height:75px;
+}
+.row.friends {
+  padding:10px;
+  margin-right: auto;
+  margin-left: auto;
+  border-bottom:solid 1px #e5e5e5;
+  border-top:solid 1px #e5e5e5;
+}
+.friendName{
+  margin-top:20px;
+}
+.confirmBtn{
+  border:solid 1px #BEBEBE;
+  border-radius:5px;
+  padding:5px 10px;
+  background-color:#F9E6E5; 
+  color:#BC5830;
+  font-weight:bold;
+  letter-spacing: .1em;
+  margin-left:5px;
+}
+.navbar-nav > li {
+  float: left;
+  font-size: 18px;
+}
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+  margin-left: -15px;
+  font-size:18px;
 }

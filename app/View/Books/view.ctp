@@ -13,10 +13,10 @@
 						<div><?php echo $this->Html->image($book['Book']['cover']);?></div>
 					</div>
 
-						<p><?php echo $this->Html->link('Add cover',array(
+						<p class="addCover"><?php echo $this->Html->link('Add cover',array(
 						'controller' => 'books', 'action' => 'set_cover', $book['Book']['id']),
 					    array(
-					    	'class'=>'btn btn-default addCover')
+					    	'class'=>'btn btn-default')
 					    ); ?></p>
 				
 				</div>
@@ -86,30 +86,25 @@
 								<?php } ?>
 
 							</div> <!-- viewBookRatingContainer -->
-						</div><!--  viewBookInfo -->
-					</div>
-				</div>
-		</div> <!-- viewBookContainer -->
-
-		<div class="">
+							<div>
 
 			<?php echo $this->Form->create('Comment'); ?>
-				<fieldset style="margin-left:15px">
+				<fieldset >
 					
 				<?php
-					echo $this->Form->input('body', array('id'=>'komcio','label'=>false, 'placeholder'=>'Comment: '));
+					echo $this->Form->input('body', array('id'=>'bodyComment','label'=>false, 'placeholder'=>'Comment: '));
 					
 				?>    
 
-
-				<button type="button" class="btn btn-default" id="przycisk_do_komciow" style="margin-left:15px">Add comment ajax</button> 
+				<!-- nie potrzebny bo dodajemy klikajac na klawisz enter -->
+				<!-- <button type="button" class="btn btn-default" id="commentButton">Send comment</button>  -->
 
 				 <?php echo $this->Form->end(); ?>
 				</fieldset>
 				
 					<br>
 					<br>
-				<div id='zbiornik_komciow' >
+				<div id='commentsContainer' >
 					<?php  foreach ($comments as $comment):
 					//pr($comment);die();
 					?> 
@@ -120,6 +115,10 @@
 				</div>
 		</div> <!-- commentsForm -->
 
+						</div><!--  viewBookInfo -->
+					</div>
+				</div>
+		</div> <!-- viewBookContainer -->
 
 
 
@@ -151,26 +150,6 @@
 
   </div>
 </div>
-
-<!-- ponizszy przyklad uzycia floatu divow uzywajac klas bootstrapowych -->
-
-<!-- <div class="container">
-  <div class="row">
-
-	<div class="col-md-8">
-		FADSADSDSADSAD ASDJSADSADAS DSADAS
-	</div>
-
-  	<div class="col-md-4">
-		fasdf asdfasdfas dfa<br>
-		fasdf as<br>
-		asdfadsfa
-	</div>
-
-  </div>
-</div>
- -->
-
 
 <script> 
 

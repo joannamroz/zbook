@@ -77,5 +77,10 @@ class AppController extends Controller {
         $count_msg=$this->Message->countUnread();
         
         $this->set('count_msg', $count_msg);
+
+        $this->loadModel('Friend');
+        $new_friends=$this->Friend->find('all', array('conditions'=>array( 'Friend.recipient_id'=>AuthComponent::user('id'),'Friend.answered'=>'0')));
+        $this->set('new_friends', $new_friends);
+
     }
 }
