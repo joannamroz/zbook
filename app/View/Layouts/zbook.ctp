@@ -34,13 +34,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->script('jquery.rateit');
 		echo $this->Html->script('jquery.pulse');
 
-		echo $this->Html->script('script?v1');
+		echo $this->Html->script('script');
 		
 		echo $this->Html->script('/../libraries/select2/select2');
 
 		//echo $this->Html->css('cake.generic');
 		echo $this->Html->css('bootstrap');
-		echo $this->Html->css('style?v1');
+		echo $this->Html->css('style');
 		echo $this->Html->css('rateit');
 		// 	echo $this->Html->css('font-awesome');
 		echo $this->Html->css('/../libraries/select2/select2.css');
