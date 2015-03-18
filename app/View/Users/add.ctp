@@ -62,7 +62,7 @@
     <label for="inputPassword2" class="col-sm-2 control-label">Repeat password</label>
     <div class="col-sm-10">
       <!-- <input type="email" class="form-control" id="inputEmail3" placeholder="Email"> -->
-      <?php echo $this->Form->input('password2', array('class' => 'form-control',
+      <?php echo $this->Form->input('password', array('class' => 'form-control',
             'label'=>false,
             'div'=>false
         ));?>
