@@ -26,6 +26,7 @@ class UsersController extends AppController {
         
         // $users=$this->User->find('all',array('order' => array('User.fullname' => 'asc')));->drugi sposób bez paginacji
         $this->set('users',$users);
+        
     }
 
     public function view($id = null) {
@@ -153,7 +154,7 @@ class UsersController extends AppController {
             throw new NotFoundException(__('Invalid user'));
         }
         
-        $this->set('user_info', $user_info);
+        
         $this->loadModel('Message');
         
 
@@ -171,11 +172,44 @@ class UsersController extends AppController {
             }
 
         }
+        $user_id=AuthComponent::user('id');
 
         $this->loadModel('Friend');
-        $isAFriend=$this->Friend->find('first', array('conditions'=>array('Friend.recipient_id'=>$id,'Friend.sender_id'=>AuthComponent::user('id'))));
+        $isAFriend = $this->Friend->find('first', array(
+                    'conditions' => array(array('Friend.answered'=>'1','Friend.response'=>'1', 'OR' =>array(
+                        array(array(
+                                    'Friend.sender_id'=>$user_id),//nadawca jest nasz $id    
+                            
+                            array(
+                                    'Friend.recipient_id'=>$id)),
+                        array(array(
+                                    'Friend.sender_id'=>$id),
+                            array(
+                                    'Friend.recipient_id'=>$user_id))// lub jest odbiorcą wiadomosci  
+                    ))
+            )));
         $isAFriend=count($isAFriend);
+
+        $mineFriendsId=$this->Friend->findUserFriendsByUserId(AuthComponent::user('id'));
+        $mineFriends=$this->User->find('all',array('conditions'=>array('User.id'=>$mineFriendsId)));
+        //pr($mineFriends);
+        $usersFriendsId=$this->Friend->findUserFriendsByUserId($user_info['User']['id']);
+        $usersFriends=$this->User->find('all',array('conditions'=>array('User.id'=>$usersFriendsId)));
+        //pr($usersFriends);
+        $result = array_intersect($mineFriendsId, $usersFriendsId);
+        //pr($result);
+        $mutual=$this->User->find('all',array('conditions'=>array('User.id'=>$result)));
+
+        //pr($mutual);
+        //pr($usersFriends);
+
+
+        $this->set('user_info', $user_info);
         $this->set('isAFriend',$isAFriend);
+        $this->set('mutual',$mutual);
+        $this->set('mineFriends', $mineFriends);
+        $this->set('userFriends', $usersFriends);
+
 
     }
     public function edit_avatar($id = null) {

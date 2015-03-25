@@ -272,6 +272,23 @@ $(document).ready(function(){
     	$('#friendsList').show();
     	
     });
+
+    $('#allFriends').on('click', function(){
+    	$('#mutual').removeClass('redLink');
+    	$(this).addClass('redLink');
+    	$('#mutualFriends').hide();
+    	$('#friendFriends').show();
+
+    });
+    
+    $('#mutual').on('click', function(){
+    	$('#allFriends').removeClass('redLink');
+    	$(this).addClass('redLink');
+    	$('#friendFriends').hide();
+    	$('#mutualFriends').show();
+    	
+    });
+
     $('.deleteRequest').on('click', function(){
     	var values = {
 	    	'sender_id':$(this).data('sender-id')

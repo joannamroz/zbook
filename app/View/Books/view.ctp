@@ -10,10 +10,10 @@
 			<div class="row">
 			  	<div class="col-md-4">
 					<div >
-						<div><?php echo $this->Html->image($book['Book']['cover']);?></div>
+						<div class="div_book_cover viewBook"><?php echo $this->Html->image($book['Book']['cover'], array('class'=>'book_cover viewBookCover'));?></div>
 					</div>
 
-						<p class="addCover"><?php echo $this->Html->link('Add cover',array(
+						<p class="addCover"><?php echo $this->Html->link('Change cover',array(
 						'controller' => 'books', 'action' => 'set_cover', $book['Book']['id']),
 					    array(
 					    	'class'=>'btn btn-default')
