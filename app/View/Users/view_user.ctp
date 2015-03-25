@@ -101,6 +101,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-6 col-md-8" >
+			<hr>
 			<?php  foreach ($mutual as $mutual): 
 				if($userFriend['User']['id']!=AuthComponent::user('id')) { ?>
 					<div class="row friends" id="singleFriendInvitation">
