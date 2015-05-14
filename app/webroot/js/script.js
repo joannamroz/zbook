@@ -378,6 +378,33 @@ $(document).ready(function(){
 	
 	});
 
+	 $('#allUsersBooks').on('click', function(){
+    	$('#highestRated').removeClass('redLink');
+    	$('#favourited').removeClass('redLink');
+    	$(this).addClass('redLink');
+    	$('#highestNote').hide();
+    	$('#favouritedFriendsBooks').hide();
+    	$('#allFriendsBooks').show();
+    });
+
+    $('#highestRated').on('click', function(){
+    	$('#allUsersBooks').removeClass('redLink');
+    	$('#favourited').removeClass('redLink');
+    	$(this).addClass('redLink');
+    	$('#allFriendsBooks').hide();
+    	$('#favouritedFriendsBooks').hide();
+    	$('#highestNote').show();
+    	
+    });
+    $('#favourited').on('click', function(){
+    	$('#allUsersBooks').removeClass('redLink');
+    	$('#highestRated').removeClass('redLink');
+    	$(this).addClass('redLink');
+    	$('#allFriendsBooks').hide();
+    	$('#highestNote').hide();
+    	$('#favouritedFriendsBooks').show();
+    	
+    });
 
 
 });

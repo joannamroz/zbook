@@ -145,6 +145,7 @@ class UsersController extends AppController {
 
     }
     public function view_user($id = null) {
+
         if (!$id) {
             throw new NotFoundException(__('Invalid user'));
         }
@@ -202,6 +203,17 @@ class UsersController extends AppController {
 
         //pr($mutual);
         //pr($usersFriends);
+
+         //pobrane celem wyświetlenia pozycji polubionych/ocenionych książek podglądanego użytkownika
+
+       
+        $this->loadModel('Rating');
+        //$this->loadModel('Author');
+        $this->Rating->recursive= 2;
+        $userLibrary=$this->Rating->find('all', array(       
+            'conditions'=>array('Rating.user_id'=>$id),'order' => array('Rating.note' => 'desc')));
+        $this->set('userLibrary', $userLibrary);
+
 
 
         $this->set('user_info', $user_info);
