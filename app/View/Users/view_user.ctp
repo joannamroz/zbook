@@ -1,6 +1,4 @@
 
-<?php //pr($user_info['User']['id']) ;?>
-<?php //pr($userLibrary[0]);?>
 
 <div class="container-fluid">
 	<div class="row">

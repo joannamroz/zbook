@@ -1,5 +1,3 @@
-<?php //pr($categories);?> <?php //die(); ?>
-
 
 <h3>Categories:</h3>
 

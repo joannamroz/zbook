@@ -1,4 +1,4 @@
-<?php //pr($friends);?>
+
 
 <h3>Requests</h3>
 <div class="containerFriendLinks">

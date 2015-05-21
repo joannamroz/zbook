@@ -9,7 +9,6 @@
     </tr>
 
     <!-- Here is where we loop through our $books array, printing out book info -->
-    <?php //pr($user_books);die(); ?>
     
     <?php $lp=1; ?>
     <?php  foreach ($user_books as $book): ?>

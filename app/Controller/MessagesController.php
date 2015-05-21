@@ -9,17 +9,17 @@ class MessagesController extends AppController {
          				//pogrupuj według albo tam gdzie recipient_id albo sender_id ma to samo id co zalogowany user
          			//	'Message.recipient_id, Message.sender_id' 
          			//),
-                    'conditions' => array('OR' => array(//albo 
+                    'conditions' => array('OR' => array(
                     	array(
-                    		'sender_id'=>$user_id//nadawca jest nasz $id 
+                    		'sender_id'=>$user_id
                     		),
                     	array(
-                    		'recipient_id'=>$user_id// lub jest odbiorcą wiadomosci
+                    		'recipient_id'=>$user_id
                     		)
                     	)
                         
                     ),
-                    'order' => array('Message.created' => 'desc')//według najnowszych
+                    'order' => array('Message.created' => 'desc')
             ));
         $related_messages=array();
     	foreach ($messages as $key => $message) {
@@ -49,7 +49,7 @@ class MessagesController extends AppController {
         $this->set('messages',$messages);
 
         if (isset($this->request->data['Message'])) {
-            //pr($this->request->data['Message']);die();
+            
         	$this->Message->create();
         	$data_to_save=$this->request->data;
             
@@ -70,14 +70,10 @@ class MessagesController extends AppController {
        $this->layout=false;
 
 		if ($this->request->is('post')) {
-			// var_dump("tak to jest post!");
-
-            //pr($this->data);
+			
     		$this->Message->create();
-    		//pr($this->request->data);
+    		
     		$this->request->data['sender_id'] = $this->Auth->user('id');
-            //$this->request->data['recipient_id']=$recipient;
-    		// pr($this->request->data);die();
 			
     		if ($this->Message->save($this->request->data)) {
     			$id_message = $this->Message->id;
@@ -91,16 +87,14 @@ class MessagesController extends AppController {
             	return 0;
             }
     	} else {
-    		pr('hola hola to nie wiadomość');
+    		pr('It is not a message!');
 		}
 	}
 
     public function ajax_view_conversation(){
 
-        // //Ustawienie layout false ( nie potrzebujemy head, navbar footer itd tylko konkretny content)
         $this->layout=false;
 
-        //pr($this->request->data);
 
         $recipient_id=$this->request->data['recipient_id'];
 
@@ -115,11 +109,9 @@ class MessagesController extends AppController {
 
         $this->set('recipient', $recipient_id);
         $this->set('messages', $messages);
-        //pr($messages );
-
-       //poniżej zmiana oznaczenia podgladanych wiadomosci jako przeczytane
+        
         foreach ($messages as $message) {
-            //pr($message);die();
+
             $message['Message']['is_read']=1;
             $this->Message->save($message);
         }

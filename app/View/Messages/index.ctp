@@ -1,4 +1,4 @@
-<?php //pr($messages);?>
+
 <div class="container">
   <div class="row">
 
@@ -73,9 +73,8 @@
 					'id'=>'msgBodyInput',
 					'placeholder'=>'Message: ',
 					'type' => 'textarea'));
-				// echo $this->Form->input('id', array('type' => 'hidden'));
+				
 				echo $this->Form->input('recipient_id', array('type' => 'hidden'));
-				// echo $this->Form->input('sender_id', array('type' => 'hidden'));
 				
 			?>
 			<button type="button" class="btn btn-default" id="messageButton" style="margin-left:15px">Send message</button> 

@@ -1,5 +1,3 @@
-<?php //pr($messages) ;?>
-<?php //pr($recipient);?>
 
 <div class="conversationView">
 	

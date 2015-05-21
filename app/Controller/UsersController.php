@@ -1,5 +1,7 @@
 <?php
-
+use Facebook\FacebookSession;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
 
 // app/Controller/UsersController.php
 App::uses('AppController', 'Controller');
@@ -8,16 +10,19 @@ App::uses('Book', 'Model');
 App::uses('Rating', 'Model');
 
 
+
 class UsersController extends AppController {
 
     public $components = array('Paginator');
-     public function beforeFilter() {
+
+    public function beforeFilter() {
         parent::beforeFilter();
         // Allow users to register and logout.
-        $this->Auth->allow('add', 'logout');
+        $this->Auth->allow('add', 'logout', 'login', 'facebook_redirect');
     }
 
     public function index() {
+    
         $this->User->recursive = 0;
         $this->Paginator->settings = array(    
            'order' => array('User.fullname'=>'asc')
@@ -34,7 +39,6 @@ class UsersController extends AppController {
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));
         }
-        //do zmiennej $user_data przypisujemy pobrany jeden rekord z bazy danych z tabeli users 
         //read() is used to retrieve a single record from the database, $id specifies the ID of the record to be read
         $user_data=$this->User->read(null, $id);
 
@@ -71,7 +75,7 @@ class UsersController extends AppController {
             );
         } else {
             $this->request->data = $this->User->read(null, $user_id);
-            //pr($this->request->data);
+          
             unset($this->request->data['User']['password']);
         }
     }
@@ -91,19 +95,28 @@ class UsersController extends AppController {
         }
         $this->Session->setFlash(__('User was not deleted'));
         return $this->redirect(array('action' => 'index'));
-    }
-    // app/Controller/UsersController.php
-
-   
+    } 
 
     public function login() {
+        
         $this->layout='notlogged';
+
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 return $this->redirect(array('controller'=>'books', 'action' => 'index'));
             }
+
             $this->Session->setFlash(__('Invalid username or password, try again'));
         }
+        echo '<br>';
+        CakeSession::start();
+
+        FacebookSession::setDefaultApplication('872290539508304', 'ab8b0f43f71d83a0e6e6717bab3104e7');
+       
+        $helper = new FacebookRedirectLoginHelper('http://asia-blog.local/users/facebook_redirect');
+        
+        $loginUrl = $helper->getLoginUrl(array('scope' => 'email, user_birthday'));
+        $this->set('fbLoginUrl', $loginUrl);
     }
 
     public function logout() {
@@ -115,26 +128,18 @@ class UsersController extends AppController {
         $this->layout='zbook';
         $user_id=$this->Auth->user('id');
 
-        //http://book.cakephp.org/2.0/en/models/model-attributes.html
-        //jest to atrybut modelu ktory jesli robimy find na tym modelu to pobierzemy glebsze relacje
-        //jak jest user-books-author to majac 0 i 1 dojedziemy tylko do books i user a majac 2 to jeszcze do authora
+       // pobieramy glebsze relacje
         $this->Rating->recursive = 2;
         $user_books=$this->Rating->find('all', array('conditions'=>array('Rating.user_id'=>$user_id)));
-        //pr($user_books);
+        
         $this->set('user_books', $user_books);
     }
     public function profile() {
         $user_id=$this->Auth->user('id');
-        //pr($user_id);die();
+      
         $user_data=$this->User->find('first',array('conditions'=>array('User.id'=>$user_id)));
-        //pr($user_data);die();
         $this->set('user_data', $user_data);
         $this->set('user_id', $user_id);
-
-        //pobrane celem wyświetlenia pozycji polubionych/ocenionych książek podglądanego użytkownika
-        // $this->loadModel('Rating');
-        // $user_info=$this->Rating->find('all', array('conditions'=>array('Rating.user_id'=>$user_id)));
-        // $this->set('user_info', $user_info);
 
         $this->loadModel('Message');
         $user_message=$this->Message->find('all', array(
@@ -156,19 +161,16 @@ class UsersController extends AppController {
         }
         
         
-        $this->loadModel('Message');
-        
+        $this->loadModel('Message');    
 
         if ($this->request->is('post')) {
             $this->Message->create();
             $data_to_save=$this->request->data;
-            // pr($data_to_save);die();
+           
             $data_to_save['Message']['sender_id']=$this->Auth->user('id');
             $data_to_save['Message']['recipient_id']=$id;
             if ($this->Message->save($data_to_save)) {
                  $this->Session->setFlash(__('Your message has been send.'));
-
-                //przekierowanie do widoku index
                 return $this->redirect(array('controller'=>'users', 'action' => 'view_user', $user_info['User']['id']));
             }
 
@@ -193,28 +195,18 @@ class UsersController extends AppController {
 
         $mineFriendsId=$this->Friend->findUserFriendsByUserId(AuthComponent::user('id'));
         $mineFriends=$this->User->find('all',array('conditions'=>array('User.id'=>$mineFriendsId)));
-        //pr($mineFriends);
+      
         $usersFriendsId=$this->Friend->findUserFriendsByUserId($user_info['User']['id']);
         $usersFriends=$this->User->find('all',array('conditions'=>array('User.id'=>$usersFriendsId)));
-        //pr($usersFriends);
+      
         $result = array_intersect($mineFriendsId, $usersFriendsId);
-        //pr($result);
         $mutual=$this->User->find('all',array('conditions'=>array('User.id'=>$result)));
-
-        //pr($mutual);
-        //pr($usersFriends);
-
-         //pobrane celem wyświetlenia pozycji polubionych/ocenionych książek podglądanego użytkownika
-
        
         $this->loadModel('Rating');
-        //$this->loadModel('Author');
         $this->Rating->recursive= 2;
         $userLibrary=$this->Rating->find('all', array(       
             'conditions'=>array('Rating.user_id'=>$id),'order' => array('Rating.note' => 'desc')));
         $this->set('userLibrary', $userLibrary);
-
-
 
         $this->set('user_info', $user_info);
         $this->set('isAFriend',$isAFriend);
@@ -227,29 +219,24 @@ class UsersController extends AppController {
     public function edit_avatar($id = null) {
         $this->User->id = $id;
         if ($this->request->is('post'))  {
-            //pr($this->request->data);
+            
             $filename = $this->request->data['User']['avatar']['name'];
-            //pr($filename);
-
+        
             //do zmiennej $ext pobieramy funkcje pathinfo rozszerzenei pliku
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            //pr($ext);
-            // do zmiennej name_hash wpisujemy losowy "hash" ktorym bedzie nowa nazwa nazsego pliczku I doklejamy kropke oraz rozszerzenie zeby powstala dobra nazwa pliczku
+    
             $name_hash = md5(uniqid(rand(), true)).'.'.$ext;
-            //pr($name_hash);die();
-            //spr czy jest katalog covers i jeśli nie ma to go tworzymy mkdir:)
+          
             if (!is_dir('img/avatars')) {
                 mkdir('img/avatars');
             }
             $destination='img/avatars/'.$name_hash;
 
             if (move_uploaded_file($this->data['User']['avatar']['tmp_name'], $destination)) {
-                // save message to session 
                 $this->Session->setFlash('File uploaded successfuly.');
 
                 $user_update['id'] = $id;
                 $user_update['avatar'] = '/'.$destination;
-                //pr($user_update);die();
                 $this->User->save($user_update);
                 $this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
 
@@ -257,6 +244,71 @@ class UsersController extends AppController {
                 $this->Session->setFlash('error while saving file');
             }
         }
+    }
+
+    public function facebook_redirect() {
+
+
+        $this->layout='ajax';
+
+        CakeSession::start();
+
+        FacebookSession::setDefaultApplication('872290539508304', 'ab8b0f43f71d83a0e6e6717bab3104e7');
+
+        $helper = new FacebookRedirectLoginHelper('http://asia-blog.local/users/facebook_redirect');
+       
+        $session = $helper->getSessionFromRedirect();
+
+
+        if ($session) {
+
+            $request = new FacebookRequest($session, 'GET', '/me');
+            $response = $request->execute();
+            $graphObject = $response->getGraphObject();
+          
+            $usrId=$graphObject->getProperty('id');
+            $usrEmail=$graphObject->getProperty('email');
+
+            $userFuid=$this->User->find('first',array('conditions'=>array('User.fuid'=>$usrId)));
+            $arrayData=$graphObject->asArray();
+
+
+            if($userFuid){
+                $this->Auth->login($userFuid['User']);
+                return $this->redirect(array('controller'=>'books','action' => 'index'));
+            }else{
+                $userEmail=$this->User->find('first',array('conditions'=>array('User.email'=>$usrEmail)));
+                if($userEmail){
+                    $this->Auth->login($userEmail['User']);
+                    return $this->redirect(array('controller'=>'books','action' => 'index'));
+                }else{
+
+                    $dateOfBirth = DateTime::createFromFormat('m/d/Y', $arrayData['birthday']);
+                    $birthday=$dateOfBirth->format('Y-m-d');
+
+                    $reset_token = bin2hex(openssl_random_pseudo_bytes(15));
+                    $this->User->create();
+                    $newUser=array(
+                        'fuid'=> $arrayData['id'],
+                        'username'=> $arrayData['name'],
+                        'password'=> $reset_token,
+                        'fullname'=>$arrayData['name'],
+                        'email'=>$arrayData['email'],
+                        'gender'=>$arrayData['gender'],
+                        'date_of_birth'=>$birthday
+                    );
+                    if ($this->User->save($newUser)) {
+                        $this->Session->setFlash(__('The user has been saved'));
+                        $new=$this->User->id;
+                        $newUserId=$this->User->find('first', array('conditions'=>array('User.id'=>$new)));
+                        $this->Auth->login($newUserId['User']);
+                        return $this->redirect(array('controller'=>'books','action' => 'index'));
+                    }
+                }
+            }
+
+        }
+
     }
     
 }

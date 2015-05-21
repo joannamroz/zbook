@@ -1,4 +1,4 @@
-<?php //pr($categories);?>
+
 <?php 
 if(count($categories)==0) {  ?>
 	<h4>No positions for this category!</h4>

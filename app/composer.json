@@ -1,0 +1,9 @@
+{
+    "name": "zbook-app",
+    "require": {
+        "facebook/php-sdk-v4" : "4.0.*"
+    },
+    "config": {
+        "vendor-dir": "Vendor/"
+    }
+}

@@ -200,36 +200,28 @@ class CommentsController extends AppController {
 
 	public function ajax_add() {
 		$this->layout=false;
-    	//$this->autoRender=false;
-    	//pr('ajax działa');
+    	
     	if ($this->request->is('post')) {
-    		//var_dump("tak to jest post!");
 
     		$this->Comment->create();
-    		//pr($this->request->data);
+    		
     		$this->request->data['user_id'] = $this->Auth->user('id');
 
-    		//pr($this->request->data);
-//$zmienna_wynik_save=;
-    		//pr($zmienna_wynik_save);
+ 
     		if ($this->Comment->save($this->request->data)) {
 
     			$id_komcia = $this->Comment->id;
 
     			$comment = $this->Comment->find('first', array('conditions'=>array('Comment.id'=>$id_komcia)));
-                //$this->Session->setFlash(__('Your book has been saved.'));
-    			//$this->set(compact('users')); to znaczy to samo co to  $this->set('users',$users); 
+                
     				$this->set('comment',$comment);
-
-
-
 
                 return 1;
             } else{
             	return 0;
             }
     	} else {
-    		pr('hola hola to nie post');
+    		pr('it is not a post');
     	}
 	}
 }

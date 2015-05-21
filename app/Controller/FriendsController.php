@@ -7,10 +7,8 @@ class FriendsController extends AppController {
     	$this->autoRender=false;
  
     	if ($this->request->is('post')) {
-    		var_dump("tak to jest post!");
 
     		$this->Friend->create();
-    		//pr($this->request->data);
     		$this->request->data['sender_id'] = $this->Auth->user('id');
     		if ($this->Friend->save($this->request->data)) {
     			return 1;
@@ -50,7 +48,7 @@ class FriendsController extends AppController {
     		$data_to_save=$this->request->data;
     		$user_id = $this->Auth->user('id');
     		$wynik = $this->Friend->find('first', array("conditions"=> array("Friend.recipient_id"=>$user_id, "Friend.sender_id"=>$data_to_save["sender_id"])));
-            //pr($wynik);die();
+            
             $data_to_save['id']=$wynik['Friend']['id'];
             $data_to_save['response']=0;
             $data_to_save['answered']=1;
@@ -69,7 +67,6 @@ class FriendsController extends AppController {
     		$data_to_save=$this->request->data;
     		$user_id = $this->Auth->user('id');
     		$wynik = $this->Friend->find('first', array("conditions"=> array("Friend.recipient_id"=>$user_id, "Friend.sender_id"=>$data_to_save["sender_id"])));
-            //pr($wynik);die();
             $data_to_save['id']=$wynik['Friend']['id'];
             $data_to_save['response']=1;
             $data_to_save['answered']=1;
@@ -88,7 +85,7 @@ class FriendsController extends AppController {
     		$data_to_save=$this->request->data;
     		$user_id = $this->Auth->user('id');
     		$wynik = $this->Friend->find('first', array("conditions"=> array("Friend.recipient_id"=>$user_id, "Friend.sender_id"=>$data_to_save["sender_id"])));
-            //pr($wynik);die();
+        
             $data_to_save['id']=$wynik['Friend']['id'];
             $data_to_save['response']=0;
             $data_to_save['answered']=1;

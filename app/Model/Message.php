@@ -26,13 +26,6 @@ class Message extends AppModel {
 		));
     public function countUnread() {
     	$user_id=AuthComponent::user('id');
-        // $messages = $this->find('all', array('conditions' => array('AND' => array(//oraz 
-        //             	array(
-        //             		'recipient_id'=>$user_id), //odbiorcą jest nasz $id 
-        //             	array(
-        //             		'is_read'=>0) // lub jest odbiorcą wiadomosci    	
-        // 				))));
-        // $count_msg=count($messages);
 
         $count_msg = $this->find('count', array(
         'conditions' => array('AND' => array(//oraz 

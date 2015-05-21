@@ -4,9 +4,6 @@
 	<div class="col-md-8">
 		<div class="">
 
-			<?php //pr($haveNote);die(); ?>
-			<?php //pr($book);die(); ?>
-			<?php //pr($usersRatings); ?>
 			<div class="row">
 			  	<div class="col-md-4">
 					<div >
@@ -35,14 +32,12 @@
 							?>" ></i>
 						</h3>
 
-						<?php //pr($id_book); ?>
 						<h3><?php echo  $this->Html->link(h($book['Author']['fullname']), array('controller'=>'authors', 'action'=>'view', $book['Author']['id']));?></h3>
 							<?php
 							if (!empty($book['BookCategory'])) { ?>
 
 							  		<?php echo $this->Html->link('Categories: ',array('controller'=>'categories','action'=>'index'));
 							  		$book_categories=$book['BookCategory'];
-							  		//pr($book_categories);
 							  		foreach ($book_categories as $key => $category) {
 							  			echo '<span class="label label-warning">'.h($category['Category']['name']).' </span>&nbsp; '  ;
 							  		} ?>
@@ -106,7 +101,6 @@
 					<br>
 				<div id='commentsContainer' >
 					<?php  foreach ($comments as $comment):
-					//pr($comment);die();
 					?> 
 					<div><em><?php echo '<q> '.h($comment['Comment']['body']).' </q>' ;?></em></div>
 					<p><?php echo h($comment['User']['fullname']) ?> <small><em><?php echo $comment['Comment']['created']?></em></small></p>

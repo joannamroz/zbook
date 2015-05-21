@@ -15,7 +15,6 @@ class Post extends AppModel {
     public function isOwnedBy($post_id, $user_id) {
     	pr('id posta '.$post_id);
     	pr('id uzytkownika '.$user_id);
-    	//die();
         
     	$pole_id =  $this->field('id', array('id'=>$post_id, 'user_id' => $user_id));
     	if ($pole_id !== false) {
@@ -25,6 +24,5 @@ class Post extends AppModel {
     	}
 		return $pole_id !== false;
 
-		//die();
 	}
 }

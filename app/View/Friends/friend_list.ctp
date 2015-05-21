@@ -1,4 +1,4 @@
-<?php //pr($friendsAccepted);?>
+
 
 <h3 id="headerFriends">Invitations</h3>
 <div class="containerFriendLinks" >

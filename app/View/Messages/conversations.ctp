@@ -1,9 +1,4 @@
-<?php //pr($messages);?>
-<?php 
-//foreach($messages as $message) { ?>
-	
-<?php 
-//} ?>
+
 <div class="conversationView">
 	<div class="messagesForm">
 	<?php echo $this->Form->create('Message'); ?>
@@ -14,9 +9,8 @@
 				'label'=>false,
 				'id'=>'msgBodyInput',
 				'placeholder'=>'Message: '));
-			// echo $this->Form->input('id', array('type' => 'hidden'));
+		
 			echo $this->Form->input('recipient_id', array('type' => 'hidden', 'value'=>$recipient_id));
-			// echo $this->Form->input('sender_id', array('type' => 'hidden'));
 			
 		?>
 		<button type="button" class="btn btn-default" id="messageButton" style="margin-left:15px">Send message</button> 

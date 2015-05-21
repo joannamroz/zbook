@@ -38,7 +38,7 @@ array('controller' => 'books', 'action' => 'view', $book['Book']['id'])); ?></h3
     <br>
     <strong>Category: </strong>
         <?php if (!empty($book['BookCategory'])){ 
-            //pr($book['BookCategory']);
+            
                         foreach ($book['BookCategory'] as $key => $category) {
                              echo $category['Category']['name'].' ';
                         }

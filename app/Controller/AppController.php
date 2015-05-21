@@ -21,6 +21,11 @@
 
 App::uses('Controller', 'Controller');
 
+//use Facebook\FacebookSession;
+//use Facebook\FacebookRedirectLoginHelper;
+
+//FacebookSession::setDefaultApplication('872290539508304', 'ab8b0f43f71d83a0e6e6717bab3104e7');
+
 /**
  * Application Controller
  *
@@ -52,25 +57,23 @@ class AppController extends Controller {
     );
 
     public function isAuthorized($user) {
-	    // Admin can access every action
-	    // if (isset($user['role']) && $user['role'] === 'admin') {
-	    //     return true;
-	    // }
+	  
 		if($this->Auth->loggedIn()){
             $this->layout='zbook';
 			return  true;
 		}else{
             $this->layout='notlogged';
         }
-		// var_dump($this->Auth->loggedIn());die();
-
 	    // Default deny
 	    return false;
 	}
 
     public function beforeFilter() {
-    	//pr('tutaj beforeFilter AppController');
-        //$this->Auth->allow('index', 'view');
+
+        $this->Auth->loginRedirect = array('controller' => 'books', 'action' => 'index');
+        $this->Auth->logoutRedirect = '/';
+        $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
+    	
     }
     public function beforeRender() {
         $this->loadModel('Message');
