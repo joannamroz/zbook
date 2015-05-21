@@ -112,8 +112,8 @@ class UsersController extends AppController {
         CakeSession::start();
 
         FacebookSession::setDefaultApplication('872290539508304', 'ab8b0f43f71d83a0e6e6717bab3104e7');
-       
-        $helper = new FacebookRedirectLoginHelper('http://asia-blog.local/users/facebook_redirect');
+      
+        $helper = new FacebookRedirectLoginHelper(Router::fullbaseUrl().'/users/facebook_redirect');
         
         $loginUrl = $helper->getLoginUrl(array('scope' => 'email, user_birthday'));
         $this->set('fbLoginUrl', $loginUrl);
@@ -255,7 +255,7 @@ class UsersController extends AppController {
 
         FacebookSession::setDefaultApplication('872290539508304', 'ab8b0f43f71d83a0e6e6717bab3104e7');
 
-        $helper = new FacebookRedirectLoginHelper('http://asia-blog.local/users/facebook_redirect');
+        $helper = new FacebookRedirectLoginHelper(Router::fullbaseUrl().'/users/facebook_redirect');
        
         $session = $helper->getSessionFromRedirect();
 
