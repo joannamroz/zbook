@@ -190,6 +190,9 @@ body {
 }
 
 .signin_link {
+  margin-left:475px;
+}
+.signin_link.fbLogin{
   margin-left:510px;
 }
 

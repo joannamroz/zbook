@@ -18,8 +18,14 @@
 	        	'placeholder'=>'Password',
 	        	'label' => array('class' => 'sr-only','text' => 'Your password'
 	        	)));
-    ?>
-<?php echo $this->Form->end(array('label'=>'Submit', 'class'=>'btn btn-lg btn-primary btn-block')); ?>
+   
+echo $this->Form->end(array('label'=>'Submit', 'class'=>'btn btn-lg btn-primary btn-block')); 
+echo $this->Html->image("fb-signin.gif", array(
+    "alt" => "Login with Facebook",
+    'url' => $fbLoginUrl,
+    'class' => 'signin_link'));
 
-<?php echo $this->Html->link('Register ', array('controller'=>'users', 'action'=>'add'), array('class' => 'signin_link'));?>
-<?php echo $this->Html->link('Login with Facebook ', $fbLoginUrl, array('class' => 'signin_link'));?>
+echo '<br>';
+echo $this->Html->link('Register ', array('controller'=>'users', 'action'=>'add'), array('class' => 'signin_link fbLogin'));?>
+
+
