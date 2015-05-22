@@ -281,11 +281,7 @@ class UsersController extends AppController {
                 if($userEmail){
                     $this->Auth->login($userEmail['User']);
                     return $this->redirect(array('controller'=>'books','action' => 'index'));
-                }else{
-
-                    $dateOfBirth = DateTime::createFromFormat('m/d/Y', $arrayData['birthday']);
-                    $birthday=$dateOfBirth->format('Y-m-d');
-
+                }else{    
                     $reset_token = bin2hex(openssl_random_pseudo_bytes(15));
                     $this->User->create();
                     $newUser=array(
@@ -294,9 +290,14 @@ class UsersController extends AppController {
                         'password'=> $reset_token,
                         'fullname'=>$arrayData['name'],
                         'email'=>$arrayData['email'],
-                        'gender'=>$arrayData['gender'],
-                        'date_of_birth'=>$birthday
+                        'gender'=>$arrayData['gender']
+                        
                     );
+                    if(array_key_exists('birthday', $arrayData)){
+                        $dateOfBirth = DateTime::createFromFormat('m/d/Y', $arrayData['birthday']);
+                        $birthday=$dateOfBirth->format('Y-m-d');
+                        $newUser['date_of_birth']=$birthday;
+                    }
                     if ($this->User->save($newUser)) {
                         $this->Session->setFlash(__('The user has been saved'));
                         $new=$this->User->id;
